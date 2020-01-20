@@ -9,16 +9,22 @@ import './App.css';
 class App extends Component {
 
   state = {
-    isLoggedIn: false,
+    access: 'none',
     username: '',
+  }
+
+  Landing = (props) => {
+    const access = props.access;
+    if (access === 'departmentManager') return "IN PROGRESS";
+    if (access === 'clerk') return "IN PROGRESS";
+    if (access === 'warehouseAssociate') return "IN PROGRESS";
+    return <Login access={this.state.access} />
   }
 
   render(){
     return (
       <div className="App">
-        <Router>
-          <Route exact path="/" component={Login} />
-        </Router>
+        <this.Landing></this.Landing>
       </div>
     );
   }

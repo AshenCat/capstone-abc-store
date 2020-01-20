@@ -1,7 +1,7 @@
 let express = require('express');
-let path = require('path');
+//let path = require('path');
 let mongoose = require('mongoose');
-//let cors = require('cors');
+let cors = require('cors');
 let bodyParser = require('body-parser');
 let dbconf = require('./db/config');
 let createError = require('http-errors');
@@ -26,16 +26,29 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     extended: false
 }));
-// app.use(cors()); // only if the app is meant to respond from other domains
+app.use(cors()); // only if the app is meant to respond from other domains
 //app.use(express.static(path.join(__dirname, 'dist/app')));
 //app.use('/', express.static(path.join(__dirname, 'dist/app')));
+
+// app.use((req, res, next) => {
+//     res.setHeader("Access-Control-Allow-Origin", "*");
+//     res.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+//     res.setHeader("Access-Control-Allow-Methods", "GET, POST, PATCH, DELETE, OPTIONS");
+//     next();
+// });
+
 app.use('/api', lobbyRoute);
 
 //Open the necessary ports
 const server = app.listen(port, () => {
     console.log('Connected to port ' + port);
-})
-
+});
+// app.use((req, res, next) => {
+//     res.setHeader("Access-Control-Allow-Origin", "*");
+//     res.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+//     res.setHeader("Access-Control-Allow-Methods", "GET, POST, PATCH, DELETE, OPTIONS");
+//     next();
+// });
 app.use((req,res,next)=>{
     next(createError(404));
 })
