@@ -1,41 +1,82 @@
 import React, { Component } from 'react';
+import Axios from 'axios';
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
 
 export default class Login extends Component {
     state ={
         username: '',
-        password: ''
+        password: '',
+        access: '',
+        message: ''
     }
 
     onSubmit = (e) => {
         e.preventDefault();
+        console.log('Username: ' + this.state.username + '\nPassword: ' + this.state.password )
+        Axios.post('http://localhost:7171/api/login', {
+            username: this.state.username,
+            password: this.state.password
+        }).then((res) => {
+            console.log(res);
+            this.setState({access: res.data.access})
+            this.props.updateAccess.bind(this, this.state.access);
+        }).catch((err)=> {
+            //console.log(err);
+            this.setState({ message: "Please Try Again"})
+        })
     }
 
-    //onChange = (e) => this.setState( {[e.target.name]: e.target.value})
+    onChange = (e) => this.setState( {[e.target.name]: e.target.value});
+
+
+    baseStyle = () => {
+        return {
+            marginTop: '25px',
+            marginLeft: '10%',
+            marginRight: '10%',
+            padding: '5%',
+            border: '1px solid black',
+            borderRadius: '25px',
+            background: '#84828F'
+        }
+    }
+
 
     render () {
         return (
-            <form >
-                <input
-                    
-                    type="text"
-                    name="username"
-                    placeholder="Enter username..."
-                    //value={this.state.username}
-                    //onChange={this.onChange}
-                />
-                <input 
-                    type="password"
-                    name="password"
-                    placeholder="Enter Password..."
-                    //value={this.state.password}
-                />
-                <input
-                    type="submit"
-                    value="submit"
-                    className="btn"
-                    style={{flex:'1'}}
-                />
-            </form>
+            <div style={this.baseStyle()}>
+                <div>
+                {this.message}
+                </div>
+                <h2>Login</h2>
+                <Form onSubmit={this.onSubmit} role="form">
+                    <Form.Group controlId="formBasicEmail">
+                        <Form.Label>Username</Form.Label>
+                        <Form.Control
+                            name="username"
+                            placeholder="Enter username..."
+                            value={this.state.username}
+                            onChange={this.onChange}
+                        />
+                        </Form.Group>
+                    <Form.Group controlId="formBasicPassword">
+                        <Form.Label>Password</Form.Label>
+                        <Form.Control
+                            name="password"
+                            type="password"
+                            placeholder="Enter Password..."
+                            value={this.state.password}
+                            onChange={this.onChange}
+                        />
+                    </Form.Group>
+                    <Button
+                        type="submit"
+                        variant="primary">
+                    Submit
+                    </Button>
+                </Form>
+            </div>
         )
     }
 }

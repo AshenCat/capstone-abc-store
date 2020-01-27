@@ -16,6 +16,8 @@ let User = new Schema({
         required: true
     }
 })
+
+
 /**
  * ADD MORE LATER
  * 
@@ -28,10 +30,38 @@ let User = new Schema({
 
 
 
-//let items = new Schema
+let Item = new Schema({
+    name: {
+        type: String,
+        required: true
+    },
+    vendor: {
+        type: String,
+        required: true
+    },
+    stock: {
+        type: Number,
+        required: true
+    },
+    price: {
+        type: String,
+        required: true
+    },
+    lastShipment: {
+        type: Date,
+        required: true
+    },
+    isle: {
+        type: String,
+        required: true
+    },
+})
 
 module.exports = {
     userModel() {
         return mongoose.model('User', User)
+    },
+    itemModel() {
+        return mongoose.model('Item', Item)
     }
 }

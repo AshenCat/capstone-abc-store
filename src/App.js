@@ -13,12 +13,16 @@ class App extends Component {
     username: '',
   }
 
+  updateAccess = (access) => {
+    this.setState({access})
+  }
+
   Landing = (props) => {
     const access = props.access;
     if (access === 'departmentManager') return "IN PROGRESS";
     if (access === 'clerk') return "IN PROGRESS";
     if (access === 'warehouseAssociate') return "IN PROGRESS";
-    return <Login access={this.state.access} />
+    return <Login updateAccess={this.updateAccess} />
   }
 
   render(){

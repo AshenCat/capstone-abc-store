@@ -4,25 +4,26 @@ const server = express.Router();
 
 let Model = require('../model/models');
 
+
+/*******************************************************************
+ * 
+ * User
+ * 
+ *******************************************************************/
+
+
 /**********************************
  * 
  * LOGIN
  * 
  **********************************/
 
-server.route('/login').post((req, res) => {
+server.route('/user/login').post((req, res) => {
     Model.userModel().findOne({
         username: req.body.username
     }).then((user)=>{
-        //console.log(user);
-        if(!user) {
-            return res.status(404).json({error: 'Auth Failed'});
-        }
-        else if (user.password === req.body.password) {
-            return res.json(user)
-        }
-        else
-            return res.status(404).json({error: 'Auth Failed'});
+        console.log(user);
+        return res.json(user)
     })
 })
 
@@ -32,7 +33,7 @@ server.route('/login').post((req, res) => {
  * 
  **********************************/
 
- server.route('/add-user').post((req,res,next)=> {
+ server.route('/user/add-user').post((req,res,next)=> {
      Model.userModel().create(req.body, (error, data)=> {
          if(error) return next(error)
          else {
@@ -42,6 +43,42 @@ server.route('/login').post((req, res) => {
      })
  })
 
+/********************************************************************
+ * 
+ * Item
+ * 
+ ********************************************************************/
 
+ server.route('/item/get-item').get((req,res,next)=>{
+     Model.itemModel().find({}, (err, data) => {
+        if(err){
+            res.send('Something went wrong...');
+        }
+        else
+            res.json(data);
+     })
+ })
+
+ /**********************************
+ * 
+ * Add item
+ * 
+ **********************************/
+
+ server.route('/item/add-item').post((req,res,next)=> {
+    Model.itemModel().create(req.body, (error, data)=> {
+        if(error) return next(error)
+        else {
+            res.json(data)
+            console.log('Successfully added to the database: \n ' + data)
+        }
+    })
+})
+
+ /**********************************
+ * 
+ * Add item
+ * 
+ **********************************/
 
  module.exports = server;
