@@ -7,20 +7,19 @@ export default class Login extends Component {
     state ={
         username: '',
         password: '',
-        access: '',
         message: ''
     }
 
     onSubmit = (e) => {
         e.preventDefault();
         console.log('Username: ' + this.state.username + '\nPassword: ' + this.state.password )
-        Axios.post('http://localhost:7171/api/login', {
+        Axios.post('http://localhost:7171/api/user/login', {
             username: this.state.username,
             password: this.state.password
         }).then((res) => {
             console.log(res);
-            this.setState({access: res.data.access})
-            this.props.updateAccess.bind(this, this.state.access);
+            //this.setState({access: res.data.access})
+            this.props.updateAccess(res.data.access);
         }).catch((err)=> {
             //console.log(err);
             this.setState({ message: "Please Try Again"})
@@ -47,7 +46,7 @@ export default class Login extends Component {
         return (
             <div style={this.baseStyle()}>
                 <div>
-                {this.message}
+                    <p className="text-center">{this.state.message}</p>
                 </div>
                 <h2>Login</h2>
                 <Form onSubmit={this.onSubmit} role="form">
