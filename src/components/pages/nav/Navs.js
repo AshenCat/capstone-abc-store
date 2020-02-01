@@ -76,27 +76,27 @@ export default class Navs extends Component {
         if (this.props.access === "Department Manager"){
             return (
                 <React.Fragment>
-                    <ListGroup.Item as="li"><Link to="/add-item" style={{color: 'black'}}>Add Item</Link></ListGroup.Item>
-                    <ListGroup.Item as="li"><Link to="/tickets" style={{color: 'black'}}>Request Tickets</Link></ListGroup.Item>
-                    <ListGroup.Item as="li"><Link to="/stats" style={{color: 'black'}}>Item Statistics</Link></ListGroup.Item>
-                    <ListGroup.Item as="li"><Link to="/users" style={{color: 'black'}}>Users</Link></ListGroup.Item>
+                    <ListGroup.Item as="li" className="text-center"><Link to="/add-item" style={{color: 'black'}}>Add Item</Link></ListGroup.Item>
+                    <ListGroup.Item as="li" className="text-center"><Link to="/tickets" style={{color: 'black'}}>Request Tickets</Link></ListGroup.Item>
+                    <ListGroup.Item as="li" className="text-center"><Link to="/stats" style={{color: 'black'}}>Item Statistics</Link></ListGroup.Item>
+                    <ListGroup.Item as="li" className="text-center"><Link to="/users" style={{color: 'black'}}>Users</Link></ListGroup.Item>
                 </React.Fragment>
             )
         }
         else if (this.props.access === "Store Clerk"){
             return (
                 <React.Fragment>
-                    <ListGroup.Item as="li"><Link to="/request-item">Request Item</Link></ListGroup.Item>
-                    <ListGroup.Item as="li"><Link to="/customer-return">Customer Return</Link></ListGroup.Item>
+                    <ListGroup.Item as="li" className="text-center"><Link to="/request-item">Request Item</Link></ListGroup.Item>
+                    <ListGroup.Item as="li" className="text-center"><Link to="/customer-return">Customer Return</Link></ListGroup.Item>
                 </React.Fragment>
             )
         }
         else if (this.props.access === "Warehouse Associate") {
             return (
                 <React.Fragment>
-                    <ListGroup.Item as="li"><Link to="/invoices">Invoices</Link></ListGroup.Item>
-                    <ListGroup.Item as="li"><Link to="/receive-shipments">Receive Shipments</Link></ListGroup.Item>
-                    <ListGroup.Item as="li"><Link to="/vendor-return">Vendor Return</Link></ListGroup.Item>
+                    <ListGroup.Item as="li" className="text-center"><Link to="/invoices">Invoices</Link></ListGroup.Item>
+                    <ListGroup.Item as="li" className="text-center"><Link to="/receive-shipments">Receive Shipments</Link></ListGroup.Item>
+                    <ListGroup.Item as="li" className="text-center"><Link to="/vendor-return">Vendor Return</Link></ListGroup.Item>
                 </React.Fragment>
             )
         }
@@ -105,7 +105,7 @@ export default class Navs extends Component {
     render() {
         return (
             <ListGroup as="ul">
-                <ListGroup.Item as="li" active={this.isList()}><Link to="/home" style={{color: 'black'}}>Inventory List</Link></ListGroup.Item>
+                <ListGroup.Item as="li"  className="text-center" active={this.isList()}><Link to="/home" style={{color: 'black'}}>Inventory List</Link></ListGroup.Item>
                 <this.ViewManager/>
             </ListGroup>
         )

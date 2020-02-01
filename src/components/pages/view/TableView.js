@@ -9,11 +9,11 @@ export default class TableView extends Component {
                 <Table striped bordered hover size="sm" variant="dark">
                     <thead>
                         <tr>
-                            <th>Vendor</th>
-                            <th>Model</th>
-                            <th>Price</th>
-                            <th>Stock</th>
-                            <th>Action</th>
+                            <th className="text-center">Vendor</th>
+                            <th className="text-center">Model</th>
+                            <th className="text-center">Price</th>
+                            <th className="text-center">Stock</th>
+                            <th className="text-center">Action</th>
                         </tr>
                     </thead>
                     <tbody>

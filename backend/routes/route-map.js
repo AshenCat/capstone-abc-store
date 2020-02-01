@@ -87,8 +87,8 @@ server.route('/user/login').post((req, res) => {
 
  server.route('/item/edit-item/:id').put((req,res,next)=>{
      const id = mongoose.Types.ObjectId(req.params.id)
-     console.log(id)
-     console.log(req.body)
+    //  console.log(id)
+    //  console.log(req.body)
     Model.itemModel().findByIdAndUpdate(id, req.body, {new:true}, (err,data)=> {
         if(err) {
             console.log("update error: "+ err)
@@ -97,6 +97,26 @@ server.route('/user/login').post((req, res) => {
         else {
             console.log("update success: " + data)
             return res.json(data)
+        }
+    })
+ })
+
+  /**********************************
+ * 
+ * Edit item
+ * 
+ **********************************/
+
+ server.route('/item/delete-item/:id').delete((req,res,next)=>{
+    const id = mongoose.Types.ObjectId(req.params.id)
+    Model.itemModel().findByIdAndDelete(id, (err, doc)=> {
+        if(err) {
+            console.log("del err: " + err)
+            return next(err)
+        }
+        else {
+            console.log("del success: " + id)
+            return res.json(doc)
         }
     })
  })

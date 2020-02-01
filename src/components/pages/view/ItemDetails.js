@@ -33,10 +33,7 @@ export default class ItemDetails extends Component{
     }
 
     onDelete = () => {
-
-    }
-
-    onReturn = () => {
+        this.props.deleteData(this.state._id)
     }
 
     onChange = (e) => this.setState({[e.target.name]: e.target.value});
@@ -57,83 +54,83 @@ export default class ItemDetails extends Component{
             <div className="border">
                 <Form onSubmit={this.onSubmit} role="form">
                 <Form.Group as={Row} controlId="formItemName">
-                    <Form.Label column sm="2">
+                    <Form.Label column sm="3" className="text-right">
                         Item Name
                     </Form.Label>
-                    <Col sm="10">
+                    <Col sm="9">
                         <Form.Control name="name" onChange={this.onChange} defaultValue={this.state.name} required></Form.Control>
                         <Form.Control.Feedback type="invalid">Please enter a valid input</Form.Control.Feedback>
                     </Col>
                 </Form.Group>
 
                 <Form.Group as={Row} controlId="formVendor">
-                    <Form.Label column sm="2">
+                    <Form.Label column sm="3" className="text-right">
                         Vendor
                     </Form.Label>
-                    <Col sm="10">
+                    <Col sm="9">
                         <Form.Control name="vendor" onChange={this.onChange} defaultValue={this.state.vendor} required></Form.Control>
                         <Form.Control.Feedback type="invalid">Please enter a valid input</Form.Control.Feedback>
                     </Col>
                 </Form.Group>
 
                 <Form.Group as={Row} controlId="formStock">
-                    <Form.Label column sm="2">
+                    <Form.Label column sm="3" className="text-right">
                         Stock
                     </Form.Label>
-                    <Col sm="10">
+                    <Col sm="9">
                         <Form.Control name="stock" type="number" onChange={this.onChange} defaultValue={this.state.stock} required></Form.Control>
                         <Form.Control.Feedback type="invalid">Please enter a valid input</Form.Control.Feedback>
                     </Col>
                 </Form.Group>
 
                 <Form.Group as={Row} controlId="formPrice">
-                    <Form.Label column sm="2">
+                    <Form.Label column sm="3" className="text-right">
                         Price
                     </Form.Label>
-                    <Col sm="10">
+                    <Col sm="9">
                         <Form.Control name="price" type="number" onChange={this.onChange} defaultValue={this.state.price} required></Form.Control>
                         <Form.Control.Feedback type="invalid">Please enter a valid input</Form.Control.Feedback>
                     </Col>
                 </Form.Group>
 
                 <Form.Group as={Row} controlId="formLastShipment">
-                    <Form.Label column sm="2">
+                    <Form.Label column sm="3" className="text-right">
                         Last Shipment
                     </Form.Label>
-                    <Col sm="10">
+                    <Col sm="9">
                         <Form.Control  name="lastShipment" plaintext readOnly defaultValue={this.state.lastShipment} required></Form.Control>
                         <Form.Control.Feedback type="invalid">Please enter a valid input</Form.Control.Feedback>
                     </Col>
                 </Form.Group>
 
                 <Form.Group as={Row} controlId="formIsle">
-                    <Form.Label column sm="2">
+                    <Form.Label column sm="3" className="text-right">
                         Aisle
                     </Form.Label>
-                    <Col sm="10">
+                    <Col sm="9">
                         <Form.Control name="isle" onChange={this.onChange} defaultValue={this.state.isle} required></Form.Control>
                         <Form.Control.Feedback type="invalid">Please enter a valid input</Form.Control.Feedback>
                     </Col>
                 </Form.Group>
 
                 <Form.Group as={Row} controlId="formID">
-                    <Form.Label column sm="2">
+                    <Form.Label column sm="3" className="text-right">
                         id
                     </Form.Label>
-                    <Col sm="10">
+                    <Col sm="9">
                         <Form.Control name="_id" plaintext readOnly defaultValue={this.state._id} required></Form.Control>
                         <Form.Control.Feedback type="invalid">Please enter a valid input</Form.Control.Feedback>
                     </Col>
                 </Form.Group>
                 <Row>
                     <Col className="text-center">
-                        <Button type="submit" variant="primary">Update</Button>
+                        <Button size="lg" type="submit" variant="primary">Update</Button>
                     </Col>
                     <Col className="text-center">
-                        <Button onClick={this.onDelete} variant="danger">Delete</Button>
+                        <Button size="lg" onClick={this.onDelete} variant="danger">Delete</Button>
                     </Col>
                     <Col className="text-center">
-                        <Link className="btn btn-secondary" to="/home">Return</Link>
+                        <Link className="btn btn-secondary btn-lg" to="/home">Return</Link>
                     </Col>
                 </Row>
             </Form>

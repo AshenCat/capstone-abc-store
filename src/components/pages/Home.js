@@ -34,13 +34,18 @@ export default class Home extends Component {
         })
     }
 
+    deleteData = (id) => {
+        // Axios.delete(`http://localhost:7171/api/item/delete-item/${id}`).then(
+        //     res=>this.setState({itemList: [...this.state.itemList.filter(item=>item._id!==id)]})
+        // )
+        this.setState({itemList: [...this.state.itemList.filter(item=>item._id!==id)]})
+    }
+
     setSelected = (id) => {
         this.setState({id})
     }
 
     render() {
-
-
         return(
             <main className="mt-2">
                 <Router>
@@ -58,7 +63,8 @@ export default class Home extends Component {
                                 <Route path="/items/">
                                     <ItemDetails 
                                         item={[...this.state.itemList.filter(it => it._id === window.location.pathname.split("/")[2])]} 
-                                        updateData={this.updateData}>
+                                        updateData={this.updateData}
+                                        deleteData={this.deleteData}>
                                     </ItemDetails>
                                 </Route>
                             </figure>
