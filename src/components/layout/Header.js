@@ -9,7 +9,7 @@ export default class Header extends Component{
     render() {
         return(
             <Navbar bg="dark" variant="dark">
-                {this.props.title}
+                <h1 style={{color:"white"}}>{this.props.title}</h1>
             </Navbar>
         )
     }

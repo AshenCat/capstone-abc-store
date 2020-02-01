@@ -12,7 +12,7 @@ let User = new Schema({
     },
     access: {
         type: String,
-        enum: ['departmentManager', 'warehouseAssociate', 'clerk'],
+        enum: ['Department Manager', 'Warehouse Associate', 'Store Clerk'],
         required: true
     }
 })

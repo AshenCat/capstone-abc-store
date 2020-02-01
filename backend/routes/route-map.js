@@ -2,6 +2,8 @@ const express = require('express');
 //const app = express();
 const server = express.Router();
 
+const mongoose = require('mongoose');
+
 let Model = require('../model/models');
 
 
@@ -79,8 +81,35 @@ server.route('/user/login').post((req, res) => {
 
  /**********************************
  * 
- * Add item
+ * Edit item
  * 
  **********************************/
 
+ server.route('/item/edit-item/:id').put((req,res,next)=>{
+     const id = mongoose.Types.ObjectId(req.params.id)
+     console.log(id)
+     console.log(req.body)
+    Model.itemModel().findByIdAndUpdate(id, req.body, {new:true}, (err,data)=> {
+        if(err) {
+            console.log("update error: "+ err)
+            return next(err)
+        }
+        else {
+            console.log("update success: " + data)
+            return res.json(data)
+        }
+    })
+ })
+
  module.exports = server;
+
+// .findByIdAndUpdate(req.param._id, req.body, {new: true}, (err, data)=> {
+//     if (err) {
+//         console.log("update error: " + err)
+//         return next(err)
+//     }
+//     else{
+//         console.log("update success: " + data);
+//         return res.json(data);
+//     }
+// })

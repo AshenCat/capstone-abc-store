@@ -15,24 +15,24 @@ class App extends Component {
 
   state = {
     isLoggedIn: false,
-    access: 'login',
+    access: 'Login',
     username: '',
   }
 
   updateAccess = (newAccess) => {
-    this.setState({access: newAccess})
-    this.setState({isLoggedIn: true})
+    this.setState({access: newAccess, isLoggedIn: true})
+    //this.setState({isLoggedIn: true})
   }
 
   
 
   Landing = () => {
     if(this.state.isLoggedIn === true) {
-      if (this.state.access === 'Department Manager') return <Home></Home>;
-      if (this.state.access === 'Store Clerk') return "IN PROGRESS";
-      if (this.state.access === 'Warehouse Associate') return "IN PROGRESS";
+    if (this.state.access !== 'Login') {
+      return <Home access={this.state.access}></Home>
+    };
     }
-    return <Login updateAccess={this.updateAccess} />
+    return <Login updateAccess={this.updateAccess} isLoggedIn={this.isLoggedIn}/>
   }
 
   headerController = () => {
