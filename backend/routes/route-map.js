@@ -49,13 +49,15 @@ server.route('/user/login').post((req, res) => {
  * 
  ********************************************************************/
 
- server.route('/item/get-item').get((req,res,next)=>{
+ server.route('/item/get-items').get((req,res,next)=>{
      Model.itemModel().find({}, (err, data) => {
         if(err){
             res.send('Something went wrong...');
         }
-        else
+        else{
             res.json(data);
+            console.log(data)
+        }
      })
  })
 
