@@ -30,10 +30,12 @@ export default class ItemDetails extends Component{
             vendor: this.state.vendor,
         }
         this.props.updateData(item);
+        window.history.back();
     }
 
     onDelete = () => {
         this.props.deleteData(this.state._id)
+        window.history.back();
     }
 
     onChange = (e) => this.setState({[e.target.name]: e.target.value});
@@ -78,7 +80,7 @@ export default class ItemDetails extends Component{
                         Stock
                     </Form.Label>
                     <Col sm="9">
-                        <Form.Control name="stock" type="number" onChange={this.onChange} defaultValue={this.state.stock} required></Form.Control>
+                        <Form.Control name="stock" type="number" onChange={this.onChange} defaultValue={this.state.stock}></Form.Control>
                         <Form.Control.Feedback type="invalid">Please enter a valid input</Form.Control.Feedback>
                     </Col>
                 </Form.Group>
@@ -98,7 +100,7 @@ export default class ItemDetails extends Component{
                         Last Shipment
                     </Form.Label>
                     <Col sm="9">
-                        <Form.Control  name="lastShipment" plaintext readOnly defaultValue={this.state.lastShipment} required></Form.Control>
+                        <Form.Control  name="lastShipment" plaintext readOnly defaultValue={this.state.lastShipment}></Form.Control>
                         <Form.Control.Feedback type="invalid">Please enter a valid input</Form.Control.Feedback>
                     </Col>
                 </Form.Group>
@@ -108,7 +110,7 @@ export default class ItemDetails extends Component{
                         Aisle
                     </Form.Label>
                     <Col sm="9">
-                        <Form.Control name="isle" onChange={this.onChange} defaultValue={this.state.isle} required></Form.Control>
+                        <Form.Control name="isle" onChange={this.onChange} defaultValue={this.state.isle}></Form.Control>
                         <Form.Control.Feedback type="invalid">Please enter a valid input</Form.Control.Feedback>
                     </Col>
                 </Form.Group>

@@ -41,7 +41,6 @@ let Item = new Schema({
     },
     stock: {
         type: Number,
-        required: true
     },
     price: {
         type: String,
@@ -49,11 +48,9 @@ let Item = new Schema({
     },
     lastShipment: {
         type: Date,
-        required: true
     },
     isle: {
         type: String,
-        required: true
     },
 })
 

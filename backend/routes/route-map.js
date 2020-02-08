@@ -13,6 +13,38 @@ let Model = require('../model/models');
  * 
  *******************************************************************/
 
+/**********************************
+ * 
+ * Get user list
+ * 
+ **********************************/
+
+server.route('/user/get-users').get((req,res) => {
+    Model.userModel().find({}, (err, data)=>{
+        if(err) console.log(`Failed to load all users : ${err}`);
+        else res.json(data)
+    })
+})
+
+/**********************************
+ * 
+ * delete user
+ * 
+ **********************************/
+
+server.route('/user/delete-user/:id').delete((req,res,next)=>{
+    const id = mongoose.Types.ObjectId(req.params.id)
+    Model.userModel().findByIdAndDelete(id, (err, doc)=> {
+        if(err) {
+            console.log("del err: " + err)
+            return next(err)
+        }
+        else {
+            console.log("del success: " + id)
+            return res.json(doc)
+        }
+    })
+ })
 
 /**********************************
  * 
@@ -36,6 +68,7 @@ server.route('/user/login').post((req, res) => {
  **********************************/
 
  server.route('/user/add-user').post((req,res,next)=> {
+     console.log(req.body)
      Model.userModel().create(req.body, (error, data)=> {
          if(error) return next(error)
          else {
@@ -69,7 +102,8 @@ server.route('/user/login').post((req, res) => {
  * 
  **********************************/
 
- server.route('/item/add-item').post((req,res,next)=> {
+ server.route('/item/add-item').put((req,res,next)=> {
+    console.log(req.body)
     Model.itemModel().create(req.body, (error, data)=> {
         if(error) return next(error)
         else {
@@ -103,7 +137,7 @@ server.route('/user/login').post((req, res) => {
 
   /**********************************
  * 
- * Edit item
+ * Delete item
  * 
  **********************************/
 
