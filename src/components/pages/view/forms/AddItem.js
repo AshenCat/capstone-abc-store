@@ -69,7 +69,7 @@ export default class AddItem extends Component{
                             Price
                         </Form.Label>
                         <Col sm="9">
-                            <Form.Control name="price" type="number" onChange={this.onChange} defaultValue={this.state.price} required></Form.Control>
+                            <Form.Control name="price" type="number" onChange={this.onChange} defaultValue={this.state.price} step="0.01" required></Form.Control>
                             <Form.Control.Feedback type="invalid">Please enter a valid input</Form.Control.Feedback>
                         </Col>
                     </Form.Group>

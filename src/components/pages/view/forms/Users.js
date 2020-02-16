@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Table, Card, Form, Col, Row, Button } from 'react-bootstrap'
 
-import User from './table/User'
+import User from '../table/User'
 import Axios from 'axios'
 
 export default class Users extends Component {
