@@ -17,6 +17,7 @@ class App extends Component {
     isLoggedIn: false,
     access: 'Login',
     username: '',
+    api: 'http://localhost:7171/api'
   }
 
   updateAccess = (newAccess) => {
@@ -29,10 +30,10 @@ class App extends Component {
   Landing = () => {
     if(this.state.isLoggedIn === true) {
     if (this.state.access !== 'Login') {
-      return <Home access={this.state.access}></Home>
+      return <Home access={this.state.access} api={this.state.api}></Home>
     };
     }
-    return <Login updateAccess={this.updateAccess} isLoggedIn={this.isLoggedIn}/>
+    return <Login updateAccess={this.updateAccess} isLoggedIn={this.isLoggedIn} api={this.state.api}/>
   }
 
   headerController = () => {

@@ -15,22 +15,22 @@ export default class Users extends Component {
     }
 
     componentDidMount() {
-        Axios.get('http://localhost:7171/api/user/get-users').then(res => {
+        Axios.get(`${this.props.api}/user/get-users`).then(res => {
           console.log(res)
           this.setState({userList: res.data});
         })
     }
 
     deleteUser = (key) => {
-        Axios.delete(`http://localhost:7171/api/user/delete-user/${key}`).then(
+        Axios.delete(`${this.props.api}/user/delete-user/${key}`).then(
             this.setState({userList: [...this.state.userList.filter(us => us._id !== key)]})
         )
         //this.setState({userList: [...this.state.userList.filter(us => us._id === key)]})
-        //window.history.back();
+        window.history.back();
     }
 
     back = () => {
-        //window.history.back();
+        window.history.back();
     }
 
     onSubmit = (e) => {
@@ -40,7 +40,7 @@ export default class Users extends Component {
             password: this.state.password,
             access: this.state.access
         }
-        Axios.post(`http://localhost:7171/api/user/add-user/`, user).then(
+        Axios.post(`${this.props.api}/user/add-user/`, user).then(
             this.setState({userList: [...this.state.userList, user]})
         )
         //this.setState({userList: [...this.state.userList, user]})

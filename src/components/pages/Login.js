@@ -13,7 +13,7 @@ export default class Login extends Component {
     onSubmit = (e) => {
         e.preventDefault();
         console.log('Username: ' + this.state.username + '\nPassword: ' + this.state.password )
-        Axios.post('http://localhost:7171/api/user/login', {
+        Axios.post(`${this.props.api}/user/login`, {
             username: this.state.username,
             password: this.state.password
         }).then((res) => {
