@@ -6,7 +6,7 @@ export default class TableView extends Component {
     render(){
         return (
             <figure>
-                <Table striped bordered hover size="sm" variant="dark">
+                <Table striped bordered hover>
                     <thead>
                         <tr>
                             <th className="text-center">Vendor</th>
