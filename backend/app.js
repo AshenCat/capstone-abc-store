@@ -40,7 +40,8 @@ app.use(cors()); // only if the app is meant to respond from other domains
 app.use('/api', lobbyRoute);
 
 //Open the necessary ports
-const server = app.listen(port, () => {
+
+app.listen(port, () => {
     console.log('Connected to port ' + port);
 });
 // app.use((req, res, next) => {
