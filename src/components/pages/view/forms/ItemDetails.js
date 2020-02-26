@@ -40,6 +40,32 @@ export default class ItemDetails extends Component{
 
     onChange = (e) => this.setState({[e.target.name]: e.target.value});
 
+    Buttons = () => {
+        if(this.props.access === "Department Manager") return(
+            <React.Fragment>
+                <Col className="text-center">
+                    <Button size="lg" type="submit" variant="primary">Update</Button>
+                </Col>
+                <Col className="text-center">
+                    <Button size="lg" onClick={this.onDelete} variant="danger">Delete</Button>
+                </Col>
+                <Col className="text-center">
+                    <Link className="btn btn-secondary btn-lg" to="/home">Return</Link>
+                </Col>
+            </React.Fragment>
+        )
+        else return (
+            <React.Fragment>
+                <Col className="text-center">
+                    <Button size="lg" type="submit" variant="primary">Update</Button>
+                </Col>
+                <Col className="text-center">
+                    <Link className="btn btn-secondary btn-lg" onClick={() => window.history.back()} to="/home">Return</Link>
+                </Col>
+            </React.Fragment>
+        )
+    }
+
     render(){
         // const { name, isle, lastShipment, price, stock, _id, vendor } = this.props.item[0]
         // this.setState({
@@ -60,7 +86,7 @@ export default class ItemDetails extends Component{
                         Item Name
                     </Form.Label>
                     <Col sm="9">
-                        <Form.Control name="name" onChange={this.onChange} defaultValue={this.state.name} required></Form.Control>
+                        <Form.Control name="name" onChange={this.onChange} defaultValue={this.state.name} readOnly={this.props.access!=="Department Manager"} required></Form.Control>
                         <Form.Control.Feedback type="invalid">Please enter a valid input</Form.Control.Feedback>
                     </Col>
                 </Form.Group>
@@ -70,7 +96,7 @@ export default class ItemDetails extends Component{
                         Vendor
                     </Form.Label>
                     <Col sm="9">
-                        <Form.Control name="vendor" onChange={this.onChange} defaultValue={this.state.vendor} required></Form.Control>
+                        <Form.Control name="vendor" onChange={this.onChange} defaultValue={this.state.vendor} readOnly={this.props.access!=="Department Manager"} required></Form.Control>
                         <Form.Control.Feedback type="invalid">Please enter a valid input</Form.Control.Feedback>
                     </Col>
                 </Form.Group>
@@ -90,7 +116,7 @@ export default class ItemDetails extends Component{
                         Price
                     </Form.Label>
                     <Col sm="9">
-                        <Form.Control name="price" type="number" onChange={this.onChange} defaultValue={this.state.price} required></Form.Control>
+                        <Form.Control name="price" type="number" onChange={this.onChange} defaultValue={this.state.price} readOnly={this.props.access!=="Department Manager"} required></Form.Control>
                         <Form.Control.Feedback type="invalid">Please enter a valid input</Form.Control.Feedback>
                     </Col>
                 </Form.Group>
@@ -110,7 +136,7 @@ export default class ItemDetails extends Component{
                         Aisle
                     </Form.Label>
                     <Col sm="9">
-                        <Form.Control name="isle" onChange={this.onChange} defaultValue={this.state.isle}></Form.Control>
+                        <Form.Control name="isle" onChange={this.onChange} defaultValue={this.state.isle} readOnly={this.props.access==="Warehouse Associate"}></Form.Control>
                         <Form.Control.Feedback type="invalid">Please enter a valid input</Form.Control.Feedback>
                     </Col>
                 </Form.Group>
@@ -125,15 +151,7 @@ export default class ItemDetails extends Component{
                     </Col>
                 </Form.Group>
                 <Row>
-                    <Col className="text-center">
-                        <Button size="lg" type="submit" variant="primary">Update</Button>
-                    </Col>
-                    <Col className="text-center">
-                        <Button size="lg" onClick={this.onDelete} variant="danger">Delete</Button>
-                    </Col>
-                    <Col className="text-center">
-                        <Link className="btn btn-secondary btn-lg" to="/home">Return</Link>
-                    </Col>
+                    <this.Buttons />
                 </Row>
             </Form>
 
