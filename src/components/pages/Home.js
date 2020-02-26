@@ -7,7 +7,7 @@ import Col from 'react-bootstrap/Col'
 import Axios from 'axios'
 
 import TableView from './view/TableView';
-import Navs from './nav/Navs'
+import Navs from '../layout/nav/Navs'
 import ItemDetails from './view/forms/ItemDetails'
 import AddItem from './view/forms/AddItem'
 import Users from './view/forms/Users'
