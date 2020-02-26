@@ -8,22 +8,44 @@ import Axios from 'axios'
 
 import TableView from './view/TableView';
 import Navs from './nav/Navs'
-import ItemDetails from './view/ItemDetails'
-import AddItem from './view/AddItem'
-import Users from './view/Users'
+import ItemDetails from './view/forms/ItemDetails'
+import AddItem from './view/forms/AddItem'
+import Users from './view/forms/Users'
+import AddInvoice from './view/forms/AddInvoice'
+import InvoiceView from './view/InvoiceView';
+import ReceiveShipment from './view/forms/ReceiveShipment';
+import VendorReturn from './view/forms/VendorReturn';
 
 export default class Home extends Component {
 
     state = {
         itemList:[],
-        id: ''
+        id: '',
+        invoices: [],
     }
 
     componentDidMount() {
-        Axios.get(`http://localhost:7171/api/item/get-items`).then(res=>{
+        Axios.get(`${this.props.api}/item/get-items`).then(res=>{
             this.setState({itemList:res.data})
         })
+
+        Axios.get(`${this.props.api}/invoice/get-invoices`).then(res=>{
+            this.setState({invoices: [...res.data]})
+        })
     }
+
+    
+    setSelected = (id) => {
+        this.setState({id})
+    }
+
+    /*****************************************************************
+     * 
+     * 
+     * ITEMS
+     * 
+     * 
+     *****************************************************************/
 
     updateData = (item) => {
         const id = item._id;
@@ -31,32 +53,128 @@ export default class Home extends Component {
         // console.log(id);
         // console.log([...this.state.itemList.filter(item=>item._id!==id)])
         delete item._id;
-        Axios.put(`http://localhost:7171/api/item/edit-item/${id}`, item).then(res=>{
+        Axios.put(`${this.props.api}/item/edit-item/${id}`, item).then(res=>{
             this.setState({itemList: [...this.state.itemList.filter(item=>item._id!==id), res.data]})
         })
     }
 
-    // UNCOMMENT THIS LATER!!!
+   
     deleteData = (id) => {
-        Axios.delete(`http://localhost:7171/api/item/delete-item/${id}`).then(
+        Axios.delete(`${this.props.api}/item/delete-item/${id}`).then(
             res=>this.setState({itemList: [...this.state.itemList.filter(item=>item._id!==id)]})
         )
         //this.setState({itemList: [...this.state.itemList.filter(item=>item._id!==id)]})
     }
 
-    setSelected = (id) => {
-        this.setState({id})
-    }
 
     addData = (item) => {
-        Axios.put(`http://localhost:7171/api/item/add-item`, item).then(res=>{
+        Axios.put(`${this.props.api}/item/add-item`, item).then(res=>{
             this.setState({itemList: [...this.state.itemList, res.data]})
         })
     }
 
+    /*****************************************************************
+     * 
+     * 
+     * INVOICES
+     * 
+     * 
+     *****************************************************************/
 
+    addNewInvoice = (invoice) => {
+        console.log(invoice)
+        Axios.put(`${this.props.api}/invoice/add-invoice`, invoice).then(res=>{
+            this.setState({invoices: [...this.state.invoices, res.data]})
+        })
+    }
 
+     /*****************************************************************
+     * 
+     * 
+     * SHIPMENTS?!?!
+     * 
+     * 
+     *****************************************************************/
 
+     newShipment = (shipment) => {
+         console.log(shipment)
+         Axios.post(`${this.props.api}/receive-shipment`,shipment).then(res =>{
+             this.setState({itemList: [...this.state.itemList.filter(item => (item.name !== res.data.name)), res.data]})
+             //console.log(res)
+         })
+     }
+
+     /*****************************************************************
+     * 
+     * 
+     * SHIPMENTS?!?!
+     * 
+     * 
+     *****************************************************************/
+
+     returnToVendor = (item) => {
+        console.log(item)
+        Axios.put(`${this.props.api}/return/vendor-return`, item).then(res => {
+            console.log(res)
+        })
+     }
+
+    /*****************************************************************
+     * 
+     * 
+     * View
+     * 
+     * 
+     *****************************************************************/
+
+    ViewController = () => {
+        if(this.props.access === "Department Manager") return (
+            <figure className="container">
+                <Route exact path="/home">
+                    <TableView itemList={this.state.itemList} setSelected={this.setSelected}/>
+                </Route>
+                <Route path="/items/">
+                    <ItemDetails 
+                        access={this.props.access}
+                        item={[...this.state.itemList.filter(it => it._id === window.location.pathname.split("/")[2])]} 
+                        updateData={this.updateData}
+                        deleteData={this.deleteData}/>
+                </Route>
+                <Route exact path="/add-item">
+                    <AddItem addData={this.addData}/>
+                </Route>
+                <Route exact path="/users">
+                    <Users api={this.props.api}/>
+                </Route>
+            </figure>
+        )
+        else if(this.props.access === "Warehouse Associate") return (
+            <figure className="container">
+                <Route exact path="/home">
+                    <TableView itemList={this.state.itemList} setSelected={this.setSelected}/>
+                </Route>
+                <Route path="/items/">
+                    <ItemDetails 
+                        access={this.props.access}
+                        item={[...this.state.itemList.filter(it => it._id === window.location.pathname.split("/")[2])]} 
+                        updateData={this.updateData}
+                        deleteData={this.deleteData} />
+                </Route>
+                <Route exact path="/invoices">
+                    <InvoiceView invoices={this.state.invoices} />
+                </Route>
+                <Route exact path="/invoice">
+                    <AddInvoice addNewInvoice={this.addNewInvoice} />
+                </Route>
+                <Route exact path="/receive-shipment">
+                    <ReceiveShipment newShipment={this.newShipment} />
+                </Route>
+                <Route exact path="/vendor-return">
+                    <VendorReturn returnToVendor={this.returnToVendor} />
+                </Route>
+            </figure>
+        )
+    }
 
     render() {
         return(
@@ -69,23 +187,7 @@ export default class Home extends Component {
                             </nav>
                         </Col>
                         <Col sm={8}>
-                            <figure className="container">
-                                <Route exact path="/home">
-                                    <TableView itemList={this.state.itemList} setSelected={this.setSelected}/>
-                                </Route>
-                                <Route path="/items/">
-                                    <ItemDetails 
-                                        item={[...this.state.itemList.filter(it => it._id === window.location.pathname.split("/")[2])]} 
-                                        updateData={this.updateData}
-                                        deleteData={this.deleteData}/>
-                                </Route>
-                                <Route exact path="/add-item">
-                                    <AddItem addData={this.addData}/>
-                                </Route>
-                                <Route exact path="/users">
-                                    <Users/>
-                                </Route>
-                            </figure>
+                            <this.ViewController/>
                         </Col>
                     </Row>
                 </Router>
