@@ -22,47 +22,25 @@ class App extends Component {
 
   updateAccess = (newAccess) => {
     this.setState({access: newAccess, isLoggedIn: true})
-    //this.setState({isLoggedIn: true})
   }
 
-  
+  logout = () => {
+    this.setState({access: 'Login', isLoggedIn: false})
+  }
 
   Landing = () => {
     if(this.state.isLoggedIn === true) {
-    if (this.state.access !== 'Login') {
-      return <Home access={this.state.access} api={this.state.api}></Home>
-    };
+      if (this.state.access !== 'Login') {
+        return <Home access={this.state.access} api={this.state.api}></Home>
+      };
     }
-    return <Login updateAccess={this.updateAccess} isLoggedIn={this.isLoggedIn} api={this.state.api}/>
-  }
-
-  headerController = () => {
-    if(this.state.isLoggedIn === true) {
-      switch(this.state.access){
-        case 'Department Manager':
-          //this.setState((prevState)=> ({newTitle: "Department Manager"}))
-          //this.state.newTitle="Department Manager";
-          break;
-        case 'Warehouse Associate':
-          //this.setState({newTitle: "Warehouse Associate"})
-          //this.state.newTitle="Warehouse Associate";
-          break;
-        case 'Store Clerk':
-          //this.setState({newTitle: "Store Clerk"})
-          //this.state.newTitle="Store Clerk";
-          break;
-        default:
-          //this.setState({newTitle: "Login"})
-          break;
-      }
-    }
-    return <Header title={this.state.access}></Header>
+    return <Login updateAccess={this.updateAccess} api={this.state.api}/>
   }
 
   render(){
     return (
       <div className="App">
-        <this.headerController></this.headerController>
+        <Header title={this.state.access} logout={this.logout}></Header>
         <this.Landing></this.Landing>
       </div>
     );
