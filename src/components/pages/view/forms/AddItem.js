@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Col, Row, Button, Form } from 'react-bootstrap'
+import { Col, Row, Button, Form, Card } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 
 export default class AddItem extends Component{
@@ -32,8 +32,9 @@ export default class AddItem extends Component{
 
     render(){
         return (
-            <div className="border">
-                <Form onSubmit={this.onSubmit} role="form">
+            <Card>
+                <Card.Header>Add Item</Card.Header>
+                <Form onSubmit={this.onSubmit} role="form" className="mt-3">
                     <Form.Group as={Row} controlId="formItemName">
                         <Form.Label column sm="3" className="text-right">
                             Item Name
@@ -92,16 +93,18 @@ export default class AddItem extends Component{
                             <Form.Control.Feedback type="invalid">Please enter a valid input</Form.Control.Feedback>
                         </Col>
                     </Form.Group>
-                    <Row>
-                        <Col className="text-center">
-                            <Button size="lg" type="submit" variant="primary">Update</Button>
-                        </Col>
-                        <Col className="text-center">
-                            <Link className="btn btn-secondary btn-lg" to="/home">Return</Link>
-                        </Col>
-                    </Row>
+                    <Card.Footer>
+                        <Row>
+                            <Col className="text-center">
+                                <Button size="lg" type="submit" variant="primary">Update</Button>
+                            </Col>
+                            <Col className="text-center">
+                                <Link className="btn btn-secondary btn-lg" to="/home">Return</Link>
+                            </Col>
+                        </Row>
+                    </Card.Footer>
                 </Form>
-            </div>
+            </Card>
         )
     }
 }
