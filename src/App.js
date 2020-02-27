@@ -10,7 +10,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 import './App.css';
 
-import {createBrowserHistory}  from 'history'
 
 
 class App extends Component {
@@ -47,4 +46,3 @@ class App extends Component {
 }
 
 export default App;
-export const history = createBrowserHistory();
