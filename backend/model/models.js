@@ -106,6 +106,11 @@ let Return = new Schema({
     imei: {
         type: String,
         required: true
+    },
+    status: {
+        type: String,
+        enum: ['Returned', 'Processing'],
+        default: 'Processing'
     }
 })
 

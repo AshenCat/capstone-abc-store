@@ -56,7 +56,7 @@ server.route('/user/delete-user/:id').delete((req,res,next)=>{
  **********************************/
 
 server.route('/user/login').post((req, res, next) => {
-    Model.userModel().findOne({username: req.body.username}, (err,doc)=>{
+    Model.userModel().findOne({username: req.body.username, password: req.body.password}, (err,doc)=>{
         if (err) return next(err)
         else res.json(doc)
     })
@@ -242,16 +242,45 @@ server.route('/user/login').post((req, res, next) => {
  * DEFECTIVES?!
  * 
  ********************************************************************/
+ server.route('/return').get((req,res,next) => {
+     Model.returnModel().find({}, (err,doc)=>{
+        if(err) return next(err)
+        else res.json(doc)
+     })
+ })
+
  /**********************************
  * 
  * Return to Vendor
  * 
  **********************************/
- server.route('/return/vendor-return').put((req,res,next) => {
-     console.log(req.body)
+ server.route('/return/add-to-return-list').put((req,res,next) => {
+     //console.log(req.body)
      Model.returnModel().create(req.body, (err, doc) => {
         if (err) return next(err)
         else res.json(doc)
+     })
+ })
+
+ /**********************************
+ * 
+ * Change Item Status
+ * 
+ **********************************/
+ server.route('/return/change-status').patch((req,res,next)=>{
+    //console.log(req.body)
+    const id = mongoose.Types.ObjectId(req.body._id)
+     Model.returnModel().findById(id, (err,doc)=>{
+        if (err) return next(err)
+        else {
+            doc.status = req.body.status
+            console.log(doc)
+            doc.save((err, doc)=>{
+                //console.log(doc.status)
+                if(err) return next(err)
+                else res.json(doc)
+            })
+        }
      })
  })
 
