@@ -22,7 +22,7 @@ export default class Navs extends Component {
             return (
                 <React.Fragment>
                     <ListGroup.Item as="li" className="text-center"><Link to="/request-item">Request Item</Link></ListGroup.Item>
-                    <ListGroup.Item as="li" className="text-center"><Link to="/customer-return">Customer Return</Link></ListGroup.Item>
+                    <ListGroup.Item as="li" className="text-center"><Link to="/return-item">Customer Return</Link></ListGroup.Item>
                 </React.Fragment>
             )
         }
@@ -31,7 +31,7 @@ export default class Navs extends Component {
                 <React.Fragment>
                     <ListGroup.Item as="li" className="text-center"><Link to="/invoices">Invoices</Link></ListGroup.Item>
                     <ListGroup.Item as="li" className="text-center"><Link to="/receive-shipment">Receive Shipments</Link></ListGroup.Item>
-                    <ListGroup.Item as="li" className="text-center"><Link to="/vendor-return">Vendor Return</Link></ListGroup.Item>
+                    <ListGroup.Item as="li" className="text-center"><Link to="/returns">Vendor Return</Link></ListGroup.Item>
                 </React.Fragment>
             )
         }

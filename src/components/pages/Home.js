@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
-
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 
@@ -14,30 +13,43 @@ import Users from './view/forms/Users'
 import AddInvoice from './view/forms/AddInvoice'
 import InvoiceView from './view/InvoiceView';
 import ReceiveShipment from './view/forms/ReceiveShipment';
-import VendorReturn from './view/forms/VendorReturn';
+import VendorReturn from './view/forms/Returns';
+// import {history} from '../../App'
+import ReturnView from './view/ReturnView';
 
-export default class Home extends Component {
+class Home extends Component {
 
-    state = {
-        itemList:[],
-        id: '',
-        invoices: [],
-    }
+    constructor(props){
+        super(props)
 
-    componentDidMount() {
         Axios.get(`${this.props.api}/item/get-items`).then(res=>{
-            this.setState({itemList:res.data})
+            this.setState({itemList:[...res.data]})
         })
 
         Axios.get(`${this.props.api}/invoice/get-invoices`).then(res=>{
             this.setState({invoices: [...res.data]})
         })
+
+        Axios.get(`${this.props.api}/return`).then(res=>{
+            this.setState({returnItems: [...res.data]})
+        })
+    }
+
+    state = {
+        itemList:[],
+        invoices: [],
+        returnItems: [],
+        id: '',
+    }
+
+    componentDidMount() {
+        // if( window.location.pathname !== "/home")
+        //     history.push('home')
     }
 
     
-    setSelected = (id) => {
-        this.setState({id})
-    }
+    setSelected = (id) => this.setState({id})
+    
 
     /*****************************************************************
      * 
@@ -111,12 +123,21 @@ export default class Home extends Component {
      * 
      * 
      *****************************************************************/
-
-     returnToVendor = (item) => {
+     //Store clerk adds to list of item-returns
+     storeReturn = (item) => {
         console.log(item)
-        Axios.put(`${this.props.api}/return/vendor-return`, item).then(res => {
+        Axios.put(`${this.props.api}/return/add-to-return-list`, item).then(res => {
             console.log(res)
         })
+     }
+
+     //Warehouse Guy changing status of an item
+     returnToVendor = (item) => {
+         console.log(item)
+         Axios.patch(`${this.props.api}/return/change-status`, item).then(res=>{
+            console.log(res)
+            this.setState({returnItems: [...this.state.returnItems.filter(item=> item._id !== res.data._id), res.data]})
+         })
      }
 
     /*****************************************************************
@@ -148,7 +169,7 @@ export default class Home extends Component {
                 </Route>
             </figure>
         )
-        else if(this.props.access === "Warehouse Associate") return (
+        else if (this.props.access === "Warehouse Associate") return (
             <figure className="container">
                 <Route exact path="/home">
                     <TableView itemList={this.state.itemList} setSelected={this.setSelected}/>
@@ -169,8 +190,35 @@ export default class Home extends Component {
                 <Route exact path="/receive-shipment">
                     <ReceiveShipment newShipment={this.newShipment} />
                 </Route>
-                <Route exact path="/vendor-return">
-                    <VendorReturn returnToVendor={this.returnToVendor} />
+                <Route exact path="/returns">
+                    <ReturnView returnItems={this.state.returnItems} setSelected={this.setSelected}/>
+                </Route>
+                <Route path="/return/">
+                    <VendorReturn 
+                        item={[...this.state.returnItems.filter(it => it._id === window.location.pathname.split("/")[2])]} 
+                        item2={window.location.pathname.split("/")[2]} 
+                        access={this.props.access} 
+                        returnToVendor={this.returnToVendor} />
+                </Route>
+            </figure>
+        )
+        else if (this.props.access === "Store Clerk") return(
+            <figure>
+                <Route exact path="/home">
+                    <TableView itemList={this.state.itemList} setSelected={this.setSelected}/>
+                </Route>
+                <Route path="/items/">
+                    <ItemDetails 
+                        access={this.props.access}
+                        item={[...this.state.itemList.filter(it => it._id === window.location.pathname.split("/")[2])]} 
+                        updateData={this.updateData}
+                        deleteData={this.deleteData} />
+                </Route>
+                <Route exact path="/return-item">
+                    <VendorReturn 
+                        item={this.state.returnItems.filter(it => it._id === window.location.pathname.split("/")[2])} 
+                        access={this.props.access} 
+                        storeReturn={this.storeReturn} />
                 </Route>
             </figure>
         )
@@ -196,3 +244,4 @@ export default class Home extends Component {
     }
 }
 
+export default Home;
