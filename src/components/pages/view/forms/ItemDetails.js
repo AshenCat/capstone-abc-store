@@ -5,6 +5,7 @@ import Col from 'react-bootstrap/Col'
 import Button from 'react-bootstrap/Button';
 
 import { Link } from 'react-router-dom'
+import { Card } from 'react-bootstrap';
 
 export default class ItemDetails extends Component{    
 
@@ -79,83 +80,86 @@ export default class ItemDetails extends Component{
         // })
 
         return(
-            <div className="border">
-                <Form onSubmit={this.onSubmit} role="form">
-                <Form.Group as={Row} controlId="formItemName">
-                    <Form.Label column sm="3" className="text-right">
-                        Item Name
-                    </Form.Label>
-                    <Col sm="9">
-                        <Form.Control name="name" onChange={this.onChange} defaultValue={this.state.name} readOnly={this.props.access!=="Department Manager"} required></Form.Control>
-                        <Form.Control.Feedback type="invalid">Please enter a valid input</Form.Control.Feedback>
-                    </Col>
-                </Form.Group>
+            <Card>
+                <Card.Header>Item Details</Card.Header>
+                <Card.Body></Card.Body>
+                    <Form onSubmit={this.onSubmit} role="form">
+                        <Form.Group as={Row} controlId="formItemName">
+                            <Form.Label column sm="3" className="text-right">
+                                Item Name
+                            </Form.Label>
+                            <Col sm="9">
+                                <Form.Control name="name" onChange={this.onChange} defaultValue={this.state.name} readOnly={this.props.access!=="Department Manager"} required></Form.Control>
+                                <Form.Control.Feedback type="invalid">Please enter a valid input</Form.Control.Feedback>
+                            </Col>
+                        </Form.Group>
 
-                <Form.Group as={Row} controlId="formVendor">
-                    <Form.Label column sm="3" className="text-right">
-                        Vendor
-                    </Form.Label>
-                    <Col sm="9">
-                        <Form.Control name="vendor" onChange={this.onChange} defaultValue={this.state.vendor} readOnly={this.props.access!=="Department Manager"} required></Form.Control>
-                        <Form.Control.Feedback type="invalid">Please enter a valid input</Form.Control.Feedback>
-                    </Col>
-                </Form.Group>
+                        <Form.Group as={Row} controlId="formVendor">
+                            <Form.Label column sm="3" className="text-right">
+                                Vendor
+                            </Form.Label>
+                            <Col sm="9">
+                                <Form.Control name="vendor" onChange={this.onChange} defaultValue={this.state.vendor} readOnly={this.props.access!=="Department Manager"} required></Form.Control>
+                                <Form.Control.Feedback type="invalid">Please enter a valid input</Form.Control.Feedback>
+                            </Col>
+                        </Form.Group>
 
-                <Form.Group as={Row} controlId="formStock">
-                    <Form.Label column sm="3" className="text-right">
-                        Stock
-                    </Form.Label>
-                    <Col sm="9">
-                        <Form.Control name="stock" type="number" onChange={this.onChange} defaultValue={this.state.stock}></Form.Control>
-                        <Form.Control.Feedback type="invalid">Please enter a valid input</Form.Control.Feedback>
-                    </Col>
-                </Form.Group>
+                        <Form.Group as={Row} controlId="formStock">
+                            <Form.Label column sm="3" className="text-right">
+                                Stock
+                            </Form.Label>
+                            <Col sm="9">
+                                <Form.Control name="stock" type="number" onChange={this.onChange} defaultValue={this.state.stock}></Form.Control>
+                                <Form.Control.Feedback type="invalid">Please enter a valid input</Form.Control.Feedback>
+                            </Col>
+                        </Form.Group>
 
-                <Form.Group as={Row} controlId="formPrice">
-                    <Form.Label column sm="3" className="text-right">
-                        Price
-                    </Form.Label>
-                    <Col sm="9">
-                        <Form.Control name="price" type="number" onChange={this.onChange} defaultValue={this.state.price} readOnly={this.props.access!=="Department Manager"} required></Form.Control>
-                        <Form.Control.Feedback type="invalid">Please enter a valid input</Form.Control.Feedback>
-                    </Col>
-                </Form.Group>
+                        <Form.Group as={Row} controlId="formPrice">
+                            <Form.Label column sm="3" className="text-right">
+                                Price
+                            </Form.Label>
+                            <Col sm="9">
+                                <Form.Control name="price" type="number" onChange={this.onChange} defaultValue={this.state.price} readOnly={this.props.access!=="Department Manager"} required></Form.Control>
+                                <Form.Control.Feedback type="invalid">Please enter a valid input</Form.Control.Feedback>
+                            </Col>
+                        </Form.Group>
 
-                <Form.Group as={Row} controlId="formLastShipment">
-                    <Form.Label column sm="3" className="text-right">
-                        Last Shipment
-                    </Form.Label>
-                    <Col sm="9">
-                        <Form.Control  name="lastShipment" plaintext readOnly defaultValue={this.state.lastShipment}></Form.Control>
-                        <Form.Control.Feedback type="invalid">Please enter a valid input</Form.Control.Feedback>
-                    </Col>
-                </Form.Group>
+                        <Form.Group as={Row} controlId="formLastShipment">
+                            <Form.Label column sm="3" className="text-right">
+                                Last Shipment
+                            </Form.Label>
+                            <Col sm="9">
+                                <Form.Control  name="lastShipment" plaintext readOnly defaultValue={this.state.lastShipment}></Form.Control>
+                                <Form.Control.Feedback type="invalid">Please enter a valid input</Form.Control.Feedback>
+                            </Col>
+                        </Form.Group>
 
-                <Form.Group as={Row} controlId="formIsle">
-                    <Form.Label column sm="3" className="text-right">
-                        Aisle
-                    </Form.Label>
-                    <Col sm="9">
-                        <Form.Control name="isle" onChange={this.onChange} defaultValue={this.state.isle} readOnly={this.props.access==="Warehouse Associate"}></Form.Control>
-                        <Form.Control.Feedback type="invalid">Please enter a valid input</Form.Control.Feedback>
-                    </Col>
-                </Form.Group>
+                        <Form.Group as={Row} controlId="formIsle">
+                            <Form.Label column sm="3" className="text-right">
+                                Aisle
+                            </Form.Label>
+                            <Col sm="9">
+                                <Form.Control name="isle" onChange={this.onChange} defaultValue={this.state.isle} readOnly={this.props.access==="Warehouse Associate"}></Form.Control>
+                                <Form.Control.Feedback type="invalid">Please enter a valid input</Form.Control.Feedback>
+                            </Col>
+                        </Form.Group>
 
-                <Form.Group as={Row} controlId="formID">
-                    <Form.Label column sm="3" className="text-right">
-                        id
-                    </Form.Label>
-                    <Col sm="9">
-                        <Form.Control name="_id" plaintext readOnly defaultValue={this.state._id} required></Form.Control>
-                        <Form.Control.Feedback type="invalid">Please enter a valid input</Form.Control.Feedback>
-                    </Col>
-                </Form.Group>
-                <Row>
-                    <this.Buttons />
-                </Row>
-            </Form>
-
-            </div>
+                        <Form.Group as={Row} controlId="formID">
+                            <Form.Label column sm="3" className="text-right">
+                                id
+                            </Form.Label>
+                            <Col sm="9">
+                                <Form.Control name="_id" plaintext readOnly defaultValue={this.state._id} required></Form.Control>
+                                <Form.Control.Feedback type="invalid">Please enter a valid input</Form.Control.Feedback>
+                            </Col>
+                        </Form.Group>
+                        <Card.Footer>
+                            <Row>
+                                <this.Buttons />
+                            </Row>
+                        </Card.Footer>
+                    </Form>
+            </Card>
         )
     }
 }
