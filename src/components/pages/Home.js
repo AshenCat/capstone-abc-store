@@ -14,7 +14,6 @@ import AddInvoice from './view/forms/AddInvoice'
 import InvoiceView from './view/InvoiceView';
 import ReceiveShipment from './view/forms/ReceiveShipment';
 import VendorReturn from './view/forms/Returns';
-// import {history} from '../../App'
 import ReturnView from './view/ReturnView';
 
 class Home extends Component {
@@ -42,10 +41,6 @@ class Home extends Component {
         id: '',
     }
 
-    componentDidMount() {
-        // if( window.location.pathname !== "/home")
-        //     history.push('home')
-    }
 
     
     setSelected = (id) => this.setState({id})
@@ -61,9 +56,6 @@ class Home extends Component {
 
     updateData = (item) => {
         const id = item._id;
-        // console.log(item);
-        // console.log(id);
-        // console.log([...this.state.itemList.filter(item=>item._id!==id)])
         delete item._id;
         Axios.put(`${this.props.api}/item/edit-item/${id}`, item).then(res=>{
             this.setState({itemList: [...this.state.itemList.filter(item=>item._id!==id), res.data]})
@@ -75,7 +67,6 @@ class Home extends Component {
         Axios.delete(`${this.props.api}/item/delete-item/${id}`).then(
             res=>this.setState({itemList: [...this.state.itemList.filter(item=>item._id!==id)]})
         )
-        //this.setState({itemList: [...this.state.itemList.filter(item=>item._id!==id)]})
     }
 
 
@@ -103,7 +94,7 @@ class Home extends Component {
      /*****************************************************************
      * 
      * 
-     * SHIPMENTS?!?!
+     * SHIPMENTS
      * 
      * 
      *****************************************************************/
@@ -112,14 +103,13 @@ class Home extends Component {
          console.log(shipment)
          Axios.post(`${this.props.api}/receive-shipment`,shipment).then(res =>{
              this.setState({itemList: [...this.state.itemList.filter(item => (item.name !== res.data.name)), res.data]})
-             //console.log(res)
          })
      }
 
      /*****************************************************************
      * 
      * 
-     * SHIPMENTS?!?!
+     * SHIPMENTS
      * 
      * 
      *****************************************************************/
@@ -131,7 +121,7 @@ class Home extends Component {
         })
      }
 
-     //Warehouse Guy changing status of an item
+     //Warehouse Associate changing status of an item
      returnToVendor = (item) => {
          console.log(item)
          Axios.patch(`${this.props.api}/return/change-status`, item).then(res=>{
