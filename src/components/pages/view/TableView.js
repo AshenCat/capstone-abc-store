@@ -12,7 +12,7 @@ export default class TableView extends Component {
                             <th className="text-center">Vendor</th>
                             <th className="text-center">Model</th>
                             <th className="text-center">Price</th>
-                            <th className="text-center">Stock</th>
+                            <th className="text-center">Quantity</th>
                             <th className="text-center">Action</th>
                         </tr>
                     </thead>

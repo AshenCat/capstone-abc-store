@@ -218,25 +218,37 @@ server.route('/user/login').post((req, res, next) => {
      Model.itemModel().findOne({'vendor':req.body.vendor, 'name': req.body.name}, (err,doc)=>{
          if(err) return next(err)
          else{
-             //console.log(`Current Quantity: ${doc.stock}`)
+             //console.log(`Current Quantity: ${doc.quantity}`)
              //console.log(`Current Date: ${doc.lastShipment}`)
-             doc.stock = parseInt(doc.stock) + parseInt(req.body.quantity)
-             doc.lastShipment = req.body.date
-             doc.save((err,doc)=>{
-                 if(err) {
-                     console.log(`Receive Shipment error: ${err}`)
-                     return next(err)
-                    }
-                //console.log(`New Stock Quantity: ${doc.stock}`)
-                //console.log(`new date: ${doc.lastShipment}`)
-                Model.shipmentModel().create(req.body, (err,doc2)=>{
+            if(doc !== null){
+                 doc.quantity = parseInt(doc.quantity) + parseInt(req.body.quantity)
+                 doc.lastShipment = req.body.date
+                 doc.save((err,doc)=>{
+                    if(err) {
+                        console.log(`Receive Shipment error: ${err}`)
+                        return next(err)
+                       }
+                    Model.shipmentModel().create(req.body, (err,doc2)=>{
                     if (err) return next(err)
                     else res.json(doc)
+                    })
                 })
-             })
-         }
-     })
- })
+            }
+            else {
+                console.log(2)
+                Model.itemModel().create(req.body, (err,doc2)=>{
+                    if (err) return next(err)
+                    else {
+                        Model.shipmentModel().create(req.body, (err,doc3)=>{
+                            if (err) return next(err)
+                            else res.json(doc3)
+                        })
+                    }
+                })
+            }
+        }
+    })
+})
  /********************************************************************
  * 
  * DEFECTIVES?!
@@ -267,10 +279,10 @@ server.route('/user/login').post((req, res, next) => {
  * Change Item Status
  * 
  **********************************/
- server.route('/return/change-status').patch((req,res,next)=>{
+ server.route('/return/change-status').patch((req,res,next) => {
     //console.log(req.body)
     const id = mongoose.Types.ObjectId(req.body._id)
-     Model.returnModel().findById(id, (err,doc)=>{
+     Model.returnModel().findById(id, (err,doc) => {
         if (err) return next(err)
         else {
             doc.status = req.body.status
@@ -284,15 +296,36 @@ server.route('/user/login').post((req, res, next) => {
      })
  })
 
+/********************************************************************
+ * 
+ * Item Requests?!
+ * 
+ ********************************************************************/
+ /**********************************
+ * 
+ * Get request list
+ * 
+ **********************************/
+ server.route('/request').get((req,res,next) => {
+     Model.requestModel().find({}, (err,doc) => {
+        if (err) return next(err)
+        else res.json(doc)
+     })
+ })
+ /**********************************
+ * 
+ * add request list
+ * 
+ **********************************/
+ server.route('/request/add-item-request').put((req,res,next)=>{
+     Model.requestModel().create(req.body, (err,doc)=>{
+        if (err) return next(err)
+        else res.json(doc)
+     })
+ })
+/**********************************
+ * 
+ * edit request status
+ * 
+ **********************************/
  module.exports = server;
-
-// .findByIdAndUpdate(req.param._id, req.body, {new: true}, (err, data)=> {
-//     if (err) {
-//         console.log("update error: " + err)
-//         return next(err)
-//     }
-//     else{
-//         console.log("update success: " + data);
-//         return res.json(data);
-//     }
-// })

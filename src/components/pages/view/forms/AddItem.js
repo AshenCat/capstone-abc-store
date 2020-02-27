@@ -8,7 +8,7 @@ export default class AddItem extends Component{
         isle: '',
         lastShipment: '',
         price: 0,
-        stock: 0,
+        quantity: 0,
         vendor: ''
     }
 
@@ -19,7 +19,7 @@ export default class AddItem extends Component{
             isle: this.state.isle,
             lastShipment: this.state.lastShipment,
             price: this.state.price,
-            stock: this.state.stock,
+            quantity: this.state.quantity,
             _id: this.state._id,
             vendor: this.state.vendor,
         }
@@ -55,12 +55,12 @@ export default class AddItem extends Component{
                         </Col>
                     </Form.Group>
 
-                    <Form.Group as={Row} controlId="formStock">
+                    <Form.Group as={Row} controlId="formQuantity">
                         <Form.Label column sm="3" className="text-right">
-                            Stock
+                            Quantity
                         </Form.Label>
                         <Col sm="9">
-                            <Form.Control name="stock" type="number" onChange={this.onChange} defaultValue={this.state.stock}></Form.Control>
+                            <Form.Control name="quantity" type="number" onChange={this.onChange} defaultValue={this.state.quantity}></Form.Control>
                             <Form.Control.Feedback type="invalid">Please enter a valid input</Form.Control.Feedback>
                         </Col>
                     </Form.Group>

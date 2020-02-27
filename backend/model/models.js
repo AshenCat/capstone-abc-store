@@ -54,12 +54,13 @@ let Item = new Schema({
         type: String,
         required: true
     },
-    stock: {
+    quantity: {
         type: Number,
+        default: 0
     },
     price: {
         type: String,
-        required: true
+        default: 0
     },
     lastShipment: {
         type: Date,
@@ -114,6 +115,22 @@ let Return = new Schema({
     }
 })
 
+let Request = new Schema({
+    vendor: {
+        type: String,
+        required: true,
+    },
+    name: {
+        type: String,
+        required: true
+    },
+    status: {
+        type: String,
+        enum: ['Accepted', 'Processing', 'Rejected'],
+        default: 'Processing'
+    }
+})
+
 module.exports = {
     userModel() {
         return mongoose.model('User', User)
@@ -129,5 +146,8 @@ module.exports = {
     },
     returnModel() {
         return mongoose.model('Return', Return)
+    },
+    requestModel() {
+        return mongoose.model('Request', Request)
     }
 }
