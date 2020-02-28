@@ -72,7 +72,7 @@ export default class Users extends Component {
                         <Card.Header>User Management</Card.Header>
                         <Card.Body><Card.Title></Card.Title></Card.Body>
                         <Form onSubmit={this.onSubmit} role="form">
-                            <Form.Group as={Row}>
+                            <Form.Group as={Row} className="mr-3">
                                 <Form.Label column sm="3" className="text-right">Username</Form.Label>
                                 <Col sm="9">
                                     <Form.Control name="username" onChange={this.onChange} defaultValue={this.state.username} required/>
@@ -80,7 +80,7 @@ export default class Users extends Component {
                                 </Col>
                             </Form.Group>
 
-                            <Form.Group as={Row}>
+                            <Form.Group as={Row} className="mr-3">
                                 <Form.Label column sm="3" className="text-right">Password</Form.Label>
                                 <Col sm="9">
                                     <Form.Control name="password" type="password" onChange={this.onChange} required/>
@@ -88,7 +88,7 @@ export default class Users extends Component {
                                 </Col>
                             </Form.Group>
 
-                            <Form.Group as={Row}>
+                            <Form.Group as={Row} className="mr-3">
                                 <Form.Label column sm="3" className="text-right">Access Level</Form.Label>
                                 <Col sm="9">
                                     <Form.Control name="access" onChange={this.onChange} defaultValue={this.state.access} as="select">

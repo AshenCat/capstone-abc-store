@@ -7,7 +7,7 @@ import Button from 'react-bootstrap/Button';
 import { Link } from 'react-router-dom'
 import { Card } from 'react-bootstrap';
 
-export default class ItemDetails extends Component{    
+export default class ItemDetails extends Component{
 
     state ={
         name: this.props.item[0].name,
@@ -74,7 +74,7 @@ export default class ItemDetails extends Component{
                 <Card.Header>Item Details</Card.Header>
                 <Card.Body></Card.Body>
                     <Form onSubmit={this.onSubmit} role="form">
-                        <Form.Group as={Row} controlId="formItemName">
+                        <Form.Group as={Row} controlId="formItemName"  className="mr-3">
                             <Form.Label column sm="3" className="text-right">
                                 Item Name
                             </Form.Label>
@@ -84,7 +84,7 @@ export default class ItemDetails extends Component{
                             </Col>
                         </Form.Group>
 
-                        <Form.Group as={Row} controlId="formVendor">
+                        <Form.Group as={Row} controlId="formVendor"  className="mr-3">
                             <Form.Label column sm="3" className="text-right">
                                 Vendor
                             </Form.Label>
@@ -94,7 +94,7 @@ export default class ItemDetails extends Component{
                             </Col>
                         </Form.Group>
 
-                        <Form.Group as={Row} controlId="formQuantity">
+                        <Form.Group as={Row} controlId="formQuantity"  className="mr-3">
                             <Form.Label column sm="3" className="text-right">
                                 Quantity
                             </Form.Label>
@@ -104,7 +104,7 @@ export default class ItemDetails extends Component{
                             </Col>
                         </Form.Group>
 
-                        <Form.Group as={Row} controlId="formPrice">
+                        <Form.Group as={Row} controlId="formPrice"  className="mr-3">
                             <Form.Label column sm="3" className="text-right">
                                 Price
                             </Form.Label>
@@ -114,7 +114,7 @@ export default class ItemDetails extends Component{
                             </Col>
                         </Form.Group>
 
-                        <Form.Group as={Row} controlId="formLastShipment">
+                        <Form.Group as={Row} controlId="formLastShipment"  className="mr-3">
                             <Form.Label column sm="3" className="text-right">
                                 Last Shipment
                             </Form.Label>
@@ -124,22 +124,12 @@ export default class ItemDetails extends Component{
                             </Col>
                         </Form.Group>
 
-                        <Form.Group as={Row} controlId="formIsle">
+                        <Form.Group as={Row} controlId="formIsle"  className="mr-3">
                             <Form.Label column sm="3" className="text-right">
                                 Aisle
                             </Form.Label>
                             <Col sm="9">
                                 <Form.Control name="isle" onChange={this.onChange} defaultValue={this.state.isle} readOnly={this.props.access==="Warehouse Associate"}></Form.Control>
-                                <Form.Control.Feedback type="invalid">Please enter a valid input</Form.Control.Feedback>
-                            </Col>
-                        </Form.Group>
-
-                        <Form.Group as={Row} controlId="formID">
-                            <Form.Label column sm="3" className="text-right">
-                                id
-                            </Form.Label>
-                            <Col sm="9">
-                                <Form.Control name="_id" plaintext readOnly defaultValue={this.state._id} required></Form.Control>
                                 <Form.Control.Feedback type="invalid">Please enter a valid input</Form.Control.Feedback>
                             </Col>
                         </Form.Group>

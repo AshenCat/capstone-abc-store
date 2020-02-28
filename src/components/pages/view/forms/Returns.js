@@ -3,25 +3,12 @@ import { Card, Form, Row, Col, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom'
 
 export default class VendorReturn extends React.Component{
-    constructor(props){
-        super(props)
-        if(this.props.access === "Warehouse Associate"){
-            console.log("aw")
-            this.state = {
-                name: this.props.item[0].name,
-                vendor: this.props.item[0].vendor,
-                reason: this.props.item[0].reason,
-                imei: this.props.item[0].imei,
-                status: this.props.item[0].status
-            }
-        }
-    }
     state = {
-        name: '',
-        vendor: '',
-        reason: '',
-        imei: '',
-        status: 'Processing'
+        name: this.props.item[0].name,
+        vendor: this.props.item[0].vendor,
+        reason: this.props.item[0].reason,
+        imei: this.props.item[0].imei,
+        status: this.props.access === "Store Clerk" ? 'Processing' : this.props.item[0].status
     }
 
     onChange = (e) => this.setState({[e.target.name]: e.target.value})
@@ -50,9 +37,8 @@ export default class VendorReturn extends React.Component{
                 <Card.Header>
                     {this.props.access === "Warehouse Associate" ? "Item Return" : "Return to Vendor"}
                 </Card.Header>
-                <Card.Body>
-                    <Form onSubmit={this.onSubmit} role="form">
-                        <Form.Group as={Row} controlId="formItemName">
+                    <Form onSubmit={this.onSubmit} role="form" className="mt-3">
+                        <Form.Group as={Row} controlId="formItemName" className="mr-3">
                             <Form.Label column sm="3" className="text-right">
                                 Item Name
                             </Form.Label>
@@ -62,7 +48,7 @@ export default class VendorReturn extends React.Component{
                             </Col>
                         </Form.Group>
 
-                        <Form.Group as={Row} controlId="formVendor">
+                        <Form.Group as={Row} controlId="formVendor" className="mr-3">
                             <Form.Label column sm="3" className="text-right">
                                 Vendor
                             </Form.Label>
@@ -72,7 +58,7 @@ export default class VendorReturn extends React.Component{
                             </Col>
                         </Form.Group>
 
-                        <Form.Group as={Row} controlId="formIMEI">
+                        <Form.Group as={Row} controlId="formIMEI" className="mr-3">
                             <Form.Label column sm="3" className="text-right">
                                 IMEI
                             </Form.Label>
@@ -82,7 +68,7 @@ export default class VendorReturn extends React.Component{
                             </Col>
                         </Form.Group>
 
-                        <Form.Group as={Row} controlId="formReason">
+                        <Form.Group as={Row} controlId="formReason" className="mr-3">
                             <Form.Label column sm="3" className="text-right">
                                 Reason
                             </Form.Label>
@@ -95,7 +81,7 @@ export default class VendorReturn extends React.Component{
                             </Col>
                         </Form.Group>
 
-                        <Form.Group as={Row} controlId="formStatus">
+                        <Form.Group as={Row} controlId="formStatus" className="mr-3">
                             <Form.Label column sm="3" className="text-right">
                                 Status
                             </Form.Label>
@@ -108,16 +94,17 @@ export default class VendorReturn extends React.Component{
                             </Col>
                         </Form.Group>
 
-                        <Row>
-                            <Col className="text-center">
-                                <Button size="lg" type="submit" variant="primary">Submit</Button>
-                            </Col>
-                            <Col className="text-center">
-                                <Link className="btn btn-secondary btn-lg" to="/returns">Return</Link>
-                            </Col>
-                        </Row>
+                        <Card.Footer>
+                            <Row>
+                                <Col className="text-center">
+                                    <Button size="lg" type="submit" variant="primary">Submit</Button>
+                                </Col>
+                                <Col className="text-center">
+                                    <Link className="btn btn-secondary btn-lg" to="/returns">Return</Link>
+                                </Col>
+                            </Row>
+                        </Card.Footer>
                     </Form>
-                </Card.Body>
             </Card>
         )
     }
