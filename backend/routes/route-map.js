@@ -286,11 +286,11 @@ server.route('/user/login').post((req, res, next) => {
         if (err) return next(err)
         else {
             doc.status = req.body.status
-            console.log(doc)
-            doc.save((err, doc)=>{
+            //console.log(doc)
+            doc.save((err, doc1)=>{
                 //console.log(doc.status)
                 if(err) return next(err)
-                else res.json(doc)
+                else res.json(doc1)
             })
         }
      })
@@ -314,7 +314,7 @@ server.route('/user/login').post((req, res, next) => {
  })
  /**********************************
  * 
- * add request list
+ * add request item
  * 
  **********************************/
  server.route('/request/add-item-request').put((req,res,next)=>{
@@ -328,4 +328,17 @@ server.route('/user/login').post((req, res, next) => {
  * edit request status
  * 
  **********************************/
+server.route('/request/change-status').patch((req,res,next)=>{
+    const id = mongoose.Types.ObjectId(req.body._id)
+    Model.requestModel().findById(id, (err,doc)=>{
+       if (err) return next(err)
+       else {
+           doc.status = req.body.status
+           doc.save((err,doc1)=>{
+                if(err) return next(err)
+                else res.json(doc1)
+           })
+       }
+    })
+})
  module.exports = server;

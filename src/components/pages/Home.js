@@ -16,9 +16,10 @@ import ReceiveShipment from './view/forms/ReceiveShipment';
 import VendorReturn from './view/forms/Returns';
 // import {history} from '../../App'
 import ReturnView from './view/ReturnView';
+import Requests from './view/forms/Requests'
+import RequestsView from './view/RequestsView'
 
 class Home extends Component {
-
     constructor(props){
         super(props)
 
@@ -33,20 +34,19 @@ class Home extends Component {
         Axios.get(`${this.props.api}/return`).then(res=>{
             this.setState({returnItems: [...res.data]})
         })
+
+        Axios.get(`${this.props.api}/request`).then(res=>{
+            this.setState({requestItems: [...res.data]})
+        })
     }
 
     state = {
         itemList:[],
         invoices: [],
         returnItems: [],
+        requestItems: [],
         id: '',
     }
-
-    componentDidMount() {
-        // if( window.location.pathname !== "/home")
-        //     history.push('home')
-    }
-
     
     setSelected = (id) => this.setState({id})
     
@@ -119,7 +119,7 @@ class Home extends Component {
      /*****************************************************************
      * 
      * 
-     * SHIPMENTS?!?!
+     * Returns?!?!
      * 
      * 
      *****************************************************************/
@@ -133,12 +133,38 @@ class Home extends Component {
 
      //Warehouse Guy changing status of an item
      returnToVendor = (item) => {
-         console.log(item)
+         //console.log(item)
          Axios.patch(`${this.props.api}/return/change-status`, item).then(res=>{
-            console.log(res)
+            //console.log(res)
             this.setState({returnItems: [...this.state.returnItems.filter(item=> item._id !== res.data._id), res.data]})
          })
      }
+
+     /*****************************************************************
+     * 
+     * 
+     * Requests?!?!
+     * 
+     * 
+     *****************************************************************/
+    requestItem = (item) => {
+        Axios.put(`${this.props.api}/request/add-item-request`, item).then(res=>{
+            window.history.back();
+        })
+    }
+
+    /*****************************************************************
+     * 
+     * 
+     * Admin changing request ticket status?!?!
+     * 
+     * 
+     *****************************************************************/
+    updateRequestStatus = (item) => {
+        Axios.patch(`${this.props.api}/request/change-status`, item).then(res=>{
+            this.setState({requestItems: [...this.state.requestItems.filter(item=> item._id !== res.data._id), res.data]})
+        })
+    }
 
     /*****************************************************************
      * 
@@ -167,6 +193,17 @@ class Home extends Component {
                 <Route exact path="/users">
                     <Users api={this.props.api}/>
                 </Route>
+                <Route exact path="/tickets" 
+                    render={(props) => 
+                    <RequestsView 
+                    requestList={this.state.requestItems}
+                    setSelected={this.setSelected} />}/>
+                <Route path="/requests" 
+                    render={(props)=>
+                        <Requests
+                            access={this.props.access} 
+                            item={[...this.state.requestItems.filter(it => it._id === window.location.pathname.split("/")[2])]} 
+                            updateRequestStatus={this.updateRequestStatus}/>}/>
             </figure>
         )
         else if (this.props.access === "Warehouse Associate") return (
@@ -194,11 +231,10 @@ class Home extends Component {
                     <ReturnView returnItems={this.state.returnItems} setSelected={this.setSelected}/>
                 </Route>
                 <Route path="/return/">
-                    <VendorReturn 
-                        item={[...this.state.returnItems.filter(it => it._id === window.location.pathname.split("/")[2])]} 
-                        item2={window.location.pathname.split("/")[2]} 
-                        access={this.props.access} 
-                        returnToVendor={this.returnToVendor} />
+                        <VendorReturn 
+                            item={[...this.state.returnItems.filter(it => it._id === window.location.pathname.split("/")[2])]} 
+                            access={this.props.access} 
+                            returnToVendor={this.returnToVendor} />
                 </Route>
             </figure>
         )
@@ -220,6 +256,7 @@ class Home extends Component {
                         access={this.props.access} 
                         storeReturn={this.storeReturn} />
                 </Route>
+                <Route exact path="/request-item" render={(props)=> <Requests requestItem={this.requestItem}/>}  />
             </figure>
         )
     }
