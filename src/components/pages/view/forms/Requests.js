@@ -3,12 +3,22 @@ import {Card, Form, Row, Col, Button} from 'react-bootstrap'
 import {Link} from 'react-router-dom'
 
 export default class Request extends React.Component {
+    constructor(props){
+        super(props)
+        if(this.props.access !== "Store Clerk")
+            this.state={
+                name: this.props.item[0].name,
+                vendor: this.props.item[0].vendor,
+                quantity: this.props.item[0].quantity,
+                status: this.props.item[0].status,
+            }
+    }
 
     state = {
-        name: this.props.item[0].name,
-        vendor: this.props.item[0].vendor,
-        quantity: this.props.item[0].quantity,
-        status: this.props.access === "Store Clerk" ? "Processing" : this.props.item[0].status,
+        name: "",
+        vendor: "",
+        quantity: 0,
+        status: "Processing",
     }
 
     onSubmit = (e) => {

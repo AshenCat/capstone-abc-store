@@ -3,12 +3,23 @@ import { Card, Form, Row, Col, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom'
 
 export default class VendorReturn extends React.Component{
+    constructor(props){
+        super(props)
+        if(this.props.access !== "Store Clerk")
+            this.state={
+                name: this.props.item[0].name,
+                vendor: this.props.item[0].vendor,
+                reason: this.props.item[0].reason,
+                imei: this.props.item[0].imei,
+                status: this.props.item[0].status
+            }
+    }
     state = {
-        name: this.props.item[0].name,
-        vendor: this.props.item[0].vendor,
-        reason: this.props.item[0].reason,
-        imei: this.props.item[0].imei,
-        status: this.props.access === "Store Clerk" ? 'Processing' : this.props.item[0].status
+        name: "",
+        vendor: "",
+        reason: "",
+        imei: "",
+        status:'Processing'
     }
 
     onChange = (e) => this.setState({[e.target.name]: e.target.value})

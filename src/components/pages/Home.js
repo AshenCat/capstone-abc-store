@@ -252,7 +252,10 @@ class Home extends Component {
                         access={this.props.access} 
                         storeReturn={this.storeReturn} />
                 </Route>
-                <Route exact path="/request-item" render={(props)=> <Requests requestItem={this.requestItem}/>}  />
+                <Route exact path="/request-item" 
+                    render={(props)=> <Requests 
+                        requestItem={this.requestItem}
+                        access={this.props.access}/>}  />
             </figure>
         )
     }
@@ -261,7 +264,7 @@ class Home extends Component {
         return(
             <main className="mt-2">
                 <Router>
-                    <Row>
+                    <Row className="no-mr">
                         <Col sm={3}>
                             <nav className="container">
                                 <Navs access={this.props.access}/>
