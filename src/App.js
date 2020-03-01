@@ -10,7 +10,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 import './App.css';
 
-
+const API_ENDPOINT = process.env.REACT_APP_URL || 'http://localhost:7171/api'
 
 class App extends Component {
 
@@ -18,7 +18,7 @@ class App extends Component {
     isLoggedIn: false,
     access: 'Login',
     username: '',
-    api: 'http://localhost:7171/api'
+    api: API_ENDPOINT
   }
 
   updateAccess = (newAccess) => this.setState({access: newAccess, isLoggedIn: true})
@@ -28,6 +28,7 @@ class App extends Component {
   
 
   Landing = () => {
+    //console.log(API_ENDPOINT)
     if(this.state.isLoggedIn === true) {
       if (this.state.access !== 'Login')
         return <Home access={this.state.access} api={this.state.api}></Home>
