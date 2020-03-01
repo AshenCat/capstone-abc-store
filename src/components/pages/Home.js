@@ -17,6 +17,7 @@ import VendorReturn from './view/forms/Returns';
 import ReturnView from './view/ReturnView';
 import Requests from './view/forms/Requests'
 import RequestsView from './view/RequestsView'
+import StatisticsView from './view/StatisticsView';
 
 class Home extends Component {
     constructor(props){
@@ -172,7 +173,7 @@ class Home extends Component {
 
     ViewController = () => {
         if(this.props.access === "Department Manager") return (
-            <figure className="container">
+            <figure>
                 <Route exact path="/home">
                     <TableView itemList={this.state.itemList} setSelected={this.setSelected}/>
                 </Route>
@@ -200,10 +201,14 @@ class Home extends Component {
                             access={this.props.access} 
                             item={[...this.state.requestItems.filter(it => it._id === window.location.pathname.split("/")[2])]} 
                             updateRequestStatus={this.updateRequestStatus}/>}/>
+                <Route exact path="/stats"
+                    render={(props)=>
+                        <StatisticsView 
+                            itemList={this.state.itemList}/>} />
             </figure>
         )
         else if (this.props.access === "Warehouse Associate") return (
-            <figure className="container">
+            <figure>
                 <Route exact path="/home">
                     <TableView itemList={this.state.itemList} setSelected={this.setSelected}/>
                 </Route>
@@ -265,12 +270,12 @@ class Home extends Component {
             <main className="mt-2">
                 <Router>
                     <Row className="no-mr">
-                        <Col sm={3}>
+                        <Col sm={2}>
                             <nav className="container">
                                 <Navs access={this.props.access}/>
                             </nav>
                         </Col>
-                        <Col sm={8}>
+                        <Col sm={10}>
                             <this.ViewController/>
                         </Col>
                     </Row>
