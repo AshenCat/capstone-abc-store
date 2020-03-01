@@ -11,6 +11,7 @@ export default class Request extends React.Component {
                 vendor: this.props.item[0].vendor,
                 quantity: this.props.item[0].quantity,
                 status: this.props.item[0].status,
+                date: this.props.item[0].date
             }
     }
 
@@ -19,6 +20,7 @@ export default class Request extends React.Component {
         vendor: "",
         quantity: 0,
         status: "Processing",
+        date: Date(Date.now())
     }
 
     onSubmit = (e) => {
@@ -28,7 +30,7 @@ export default class Request extends React.Component {
                 name: this.state.name,
                 vendor: this.state.vendor,
                 quantity: this.state.quantity,
-                status: this.state.status
+                status: "Processing"
             })
         } else {
             this.props.updateRequestStatus({
@@ -87,13 +89,21 @@ export default class Request extends React.Component {
                                 </Form.Control>
                             </Col>
                         </Form.Group>
+                        <Form.Group as={Row} controlId="formDate" className="mr-3">
+                            <Form.Label column sm="3" className="text-right">
+                                Date Requested
+                            </Form.Label>
+                            <Col sm="9">
+                                <Form.Control defaultValue={this.state.date} readOnly/>
+                            </Col>
+                        </Form.Group>
                         <Card.Footer>
                             <Row>
                                 <Col className="text-center">
                                     <Button size="lg" type="submit" variant="primary">Submit</Button>
                                 </Col>
                                 <Col className="text-center">
-                                    <Link className="btn btn-secondary btn-lg" to="/returns">Return</Link>
+                                    <Link className="btn btn-secondary btn-lg" to="/tickets">Return</Link>
                                 </Col>
                             </Row>
                         </Card.Footer>

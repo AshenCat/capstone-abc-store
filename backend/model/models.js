@@ -128,6 +128,10 @@ let Request = new Schema({
         type: Number,
         default: 0
     },
+    date: {
+        type: Date,
+        default: Date.now()
+    },
     status: {
         type: String,
         enum: ['Accepted', 'Processing', 'Rejected'],
