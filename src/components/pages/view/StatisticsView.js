@@ -31,9 +31,9 @@ export default class StatisticsView extends React.Component{
     chartView = () => {
         if(this.state.listCopy === []) return <div></div>
         const data = [
-            {name : "Queefy", weebness: 3},
-            {name : "Weebgor", weebness: 9.9},
-            {name : "kweebvin", weebness: 10},
+            {name : "Klifford", weebness: 3},
+            {name : "Igor", weebness: 9.9},
+            {name : "Kevin", weebness: 10},
         ]
         console.log(this.state.listCopy)
         return (
