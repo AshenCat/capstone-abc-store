@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
-import Row from 'react-bootstrap/Row'
-import Col from 'react-bootstrap/Col'
+import {Row, Col, Navbar, Container, NavbarBrand} from 'react-bootstrap'
 
 import Axios from 'axios'
 
@@ -173,7 +172,7 @@ class Home extends Component {
 
     ViewController = () => {
         if(this.props.access === "Department Manager") return (
-            <figure>
+            <figure className="m-3">
                 <Route exact path="/home">
                     <TableView itemList={this.state.itemList} setSelected={this.setSelected}/>
                 </Route>
@@ -208,7 +207,7 @@ class Home extends Component {
             </figure>
         )
         else if (this.props.access === "Warehouse Associate") return (
-            <figure>
+            <figure className="m-3">
                 <Route exact path="/home">
                     <TableView itemList={this.state.itemList} setSelected={this.setSelected}/>
                 </Route>
@@ -240,7 +239,7 @@ class Home extends Component {
             </figure>
         )
         else if (this.props.access === "Store Clerk") return(
-            <figure>
+            <figure className="m-3">
                 <Route exact path="/home">
                     <TableView itemList={this.state.itemList} setSelected={this.setSelected}/>
                 </Route>
@@ -277,9 +276,17 @@ class Home extends Component {
                         </Col>
                         <Col sm={10}>
                             <this.ViewController/>
+                            <div style={{'height':'50px'}} />
                         </Col>
                     </Row>
                 </Router>
+                <div className="fixed-bottom">  
+                    <Navbar bg="dark" variant="dark">
+                        <Container>
+                            <NavbarBrand className="text-right">Kevan is T H I C C &copy; 2020</NavbarBrand>
+                        </Container>
+                    </Navbar>
+                </div>
             </main>
         )
     }
