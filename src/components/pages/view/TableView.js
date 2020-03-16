@@ -1,12 +1,19 @@
 import React, { Component } from 'react'
 import Table from 'react-bootstrap/Table'
 import Item from './table/Item'
+import { Form, InputGroup } from 'react-bootstrap'
 
 export default class TableView extends Component {
     render(){
         return (
             <figure>
-                <Table striped bordered hover>
+                <InputGroup>
+                    <InputGroup.Prepend>
+                        <InputGroup.Text>Search </InputGroup.Text>
+                    </InputGroup.Prepend>
+                    <Form.Control style={{'width':'150px'}}/>
+                </InputGroup>
+                <Table className="mt-1" striped bordered hover>
                     <thead>
                         <tr>
                             <th className="text-center">Vendor</th>

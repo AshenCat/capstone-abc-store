@@ -172,7 +172,7 @@ class Home extends Component {
 
     ViewController = () => {
         if(this.props.access === "Department Manager") return (
-            <figure className="m-3">
+            <figure className="ml-3">
                 <Route exact path="/home">
                     <TableView itemList={this.state.itemList} setSelected={this.setSelected}/>
                 </Route>
@@ -208,7 +208,7 @@ class Home extends Component {
             </figure>
         )
         else if (this.props.access === "Warehouse Associate") return (
-            <figure className="m-3">
+            <figure className="ml-3">
                 <Route exact path="/home">
                     <TableView itemList={this.state.itemList} setSelected={this.setSelected}/>
                 </Route>
@@ -240,7 +240,7 @@ class Home extends Component {
             </figure>
         )
         else if (this.props.access === "Store Clerk") return(
-            <figure className="m-3">
+            <figure className="ml-3">
                 <Route exact path="/home">
                     <TableView itemList={this.state.itemList} setSelected={this.setSelected}/>
                 </Route>
