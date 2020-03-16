@@ -4,6 +4,12 @@ import Item from './table/Item'
 import { Form, InputGroup } from 'react-bootstrap'
 
 export default class TableView extends Component {
+    state = {
+        search: ""
+    }
+
+    onChange = (e) => this.setState({search: e.target.value})
+
     render(){
         return (
             <figure>
@@ -11,7 +17,7 @@ export default class TableView extends Component {
                     <InputGroup.Prepend>
                         <InputGroup.Text>Search </InputGroup.Text>
                     </InputGroup.Prepend>
-                    <Form.Control style={{'width':'150px'}}/>
+                    <Form.Control onChange={this.onChange}/>
                 </InputGroup>
                 <Table className="mt-1" striped bordered hover>
                     <thead>
@@ -24,7 +30,10 @@ export default class TableView extends Component {
                         </tr>
                     </thead>
                     <tbody>
-                        {this.props.itemList.map((item)=>(<Item key={item._id} item={item} setSelected={this.props.setSelected}></Item>))}
+                        {this.props.itemList.filter(item=>
+                            item.name.toLowerCase().includes(this.state.search.trim()) || 
+                            item.vendor.toLowerCase().includes(this.state.search.trim())).map((item)=>(
+                            <Item key={item._id} item={item} setSelected={this.props.setSelected}/>))}
                     </tbody>
                 </Table>
             </figure>
