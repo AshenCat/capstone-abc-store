@@ -341,4 +341,53 @@ server.route('/request/change-status').patch((req,res,next)=>{
        }
     })
 })
+/********************************************************************
+ * 
+ * Statistics?!
+ * 
+ ********************************************************************/
+/**********************************
+ * 
+ * get item statistics
+ * 
+ **********************************/
+server.route('/statistics/get-item-statistics').post((req,res,next)=>{
+
+    // Promise.all([
+    //     Model.itemModel().find({name:req.body.name, vendor: req.body.vendor}, 'quantity', (err, doc) => {
+    //         if(err) next(err)
+    //         stat.currCount = doc
+    //     }),
+    //     Model.shipmentModel({name:req.body.name, vendor: req.body.vendor}, 'quantity date', (err, doc) => {
+    //         if(err) next(err)
+    //         stat.shipmentData = doc
+    //     }),
+    //     Model.returnModel({name:req.body.name, vendor: req.body.vendor}, 'status',(err, doc) => {
+    //         if(err) next(err)
+    //         stat.returnData = doc
+    //     }),
+    //     Model.requestModel({name:req.body.name, vendor: req.body.vendor}, 'date quantity status',(err, doc) => {
+    //         if(err) next(err)
+    //         stat.requestData = doc
+    //     })
+    // ]).then((result)=>{
+    //     console.log(result)
+    // })
+    Promise.all([
+        Model.itemModel().find({name:req.body.name, vendor: req.body.vendor}, 'quantity'),
+        Model.shipmentModel().find({name:req.body.name, vendor: req.body.vendor}, 'quantity date'),
+        Model.returnModel().find({name:req.body.name, vendor: req.body.vendor}, 'status'),
+        Model.requestModel().find({name:req.body.name, vendor: req.body.vendor}, 'quantity status')
+    ]).then((result)=>{
+        stat = {};
+        stat.currData = result[0];
+        stat.shipmentData = result[1];
+        stat.returnData = result[2];
+        stat.requestData = result[3];
+        res.json(stat)
+    })
+    //console.log(req.body)
+    //stat = await Model.returnModel().find({name:req.body.name, vendor:req.body.vendor}),
+
+})
  module.exports = server;

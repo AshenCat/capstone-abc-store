@@ -1,15 +1,17 @@
 import React from 'react'
-import { Row, Col, ListGroup, FormControl, Card, InputGroup } from 'react-bootstrap';
+import { Row, Col, ListGroup, FormControl, Card, InputGroup, Container } from 'react-bootstrap';
 import { Link } from 'react-router-dom'
 import { FaSearch } from 'react-icons/fa'
 
 import { VictoryChart, VictoryTheme, VictoryAxis, VictoryBar } from 'victory'
+import Axios from 'axios';
 
 export default class StatisticsView extends React.Component{
     state = {
         listCopy: [],
         search: '',
-        tab: ''
+        tab: '',
+        itemState: []
     }
 
     componentWillReceiveProps(nextProps){
@@ -18,41 +20,69 @@ export default class StatisticsView extends React.Component{
 
     componentDidMount(){
         this.setState({
-            listCopy: [...this.props.itemList.sort((a,b) => a.vendor.localeCompare(b.vendor) || a.vendor - b.vendor)]
+            listCopy: [...this.props.itemList.sort((a,b) => a.vendor.localeCompare(b.vendor) || a.vendor - b.vendor)],
+            itemState: []
         })
     }
 
     onChange = (e) => this.setState({[e.target.name]: e.target.value})
 
     onClick = (param) => {
-        console.log(param)
+        Axios.post(`${this.props.api}/statistics/get-item-statistics`,{name:param.name, vendor:param.vendor}).then((res)=>{
+            // console.log(res.data)
+            this.setState({
+                itemState: res.data
+            })
+            console.log(this.state.itemState.currData)
+        })
     }
 
     chartView = () => {
-        if(this.state.listCopy === []) return <div></div>
-        const data = [
-            {name : "Klifford", weebness: 3},
-            {name : "Igor", weebness: 9.9},
-            {name : "Kevin", weebness: 10},
-        ]
-        console.log(this.state.listCopy)
+        if(this.state.itemState === [] || this.state.itemState === null) return <div></div>
+        // const data = [
+        //     {name : "Klifford", weebness: 3},
+        //     {name : "Igor", weebness: 9.9},
+        //     {name : "Kevin", weebness: 10},
+        // ]
+        //console.log(this.state.listCopy)
+        const data = this.state.itemState.shipmentData ? [...this.state.itemState.shipmentData]: []
         return (
             <VictoryChart 
                 theme={VictoryTheme.material}
-                domainPadding={20}
-                height={300}>
+                domainPadding={{x:15}}
+                height={220}>
                 <VictoryAxis 
-                    tickValues={[1,2,3]}
-                    tickFormat={[data[0].name,data[1].name,data[2].name]}/>
+                    tickValues={data.map((item,ctr)=>ctr)}
+                    tickFormat={data.map((item,ctr)=>ctr)}/>
                 <VictoryAxis
                     dependentAxis
                     tickFormat={(x)=>(`${x}`)}/>
                 <VictoryBar 
-                    data={data}
+                    barRatio={0.3}
+                    animate={{
+                        duration: 1000,
+                        onLoad: { duration: 500 }
+                      }}
+                    alignment="start"
+                    data={data.map(item=>item.quantity)}
                     x="name"
                     y="weebness"/>
             </VictoryChart>
         )
+    }
+
+    chartLegend = () => {
+        const data = this.state.itemState.shipmentData ? [...this.state.itemState.shipmentData]: []
+        return  <>
+                    {data.map((item,ctr) => <Col key={item._id}>{ctr} - {item.date}</Col> )}
+                </>
+    }
+
+    thisCount = () => {
+        const data = this.state.itemState.currData ? [...this.state.itemState.currData]: []
+        return  <React.Fragment>
+                    {data.map(item=><React.Fragment key={item._id}>{item.quantity}, </React.Fragment>)}
+                </React.Fragment>
     }
 
     render() {
@@ -87,6 +117,15 @@ export default class StatisticsView extends React.Component{
                         </Card.Header>
                         <Card.Body>
                             <this.chartView/>
+                            <Container>
+                                Legend:
+                                <Row>
+                                    <this.chartLegend />
+                                </Row> 
+                            </Container>
+                            <Row>
+                                <Col>Current Stock: <this.thisCount/></Col>
+                            </Row>
                         </Card.Body>
                         <Card.Footer>
                             <Link className="btn btn-sm btn-secondary" to="/home">return</Link>

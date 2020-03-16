@@ -203,7 +203,8 @@ class Home extends Component {
                 <Route exact path="/stats"
                     render={(props)=>
                         <StatisticsView 
-                            itemList={this.state.itemList}/>} />
+                            itemList={this.state.itemList}
+                            api={this.props.api}/>} />
             </figure>
         )
         else if (this.props.access === "Warehouse Associate") return (

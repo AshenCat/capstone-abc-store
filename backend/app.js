@@ -10,7 +10,7 @@ const port = 7171;
 
 //mongoose.Promise = global.Promise; //outdated, only for mongoose 4 and below
 //connect to db
-mongoose.connect(dbconf.db, {useNewUrlParser: true}).then(()=>{
+mongoose.connect(dbconf.db, {useNewUrlParser: true, useUnifiedTopology: true}).then(()=>{
     console.log('Successfully connected to the database!');
     },
     error => {
