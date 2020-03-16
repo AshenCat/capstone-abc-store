@@ -284,7 +284,7 @@ class Home extends Component {
                 <div className="fixed-bottom">  
                     <Navbar bg="dark" variant="dark">
                         <Container>
-                            <NavbarBrand className="text-right">Kevan is T H I C C &copy; 2020</NavbarBrand>
+                            <NavbarBrand className="text-right">Team Weebie &copy; 2020</NavbarBrand>
                         </Container>
                     </Navbar>
                 </div>
