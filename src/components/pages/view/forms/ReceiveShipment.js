@@ -15,7 +15,7 @@ export default class ReceiveShipment extends React.Component{
         received: '',
         date: '',
         quantity: 0,
-        vendor: '',
+        vendor: ''
     }
 
     onChange = (e) => this.setState({[e.target.name]: e.target.value})
