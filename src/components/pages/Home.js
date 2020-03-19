@@ -226,7 +226,7 @@ class Home extends Component {
                     <AddInvoice addNewInvoice={this.addNewInvoice} />
                 </Route>
                 <Route exact path="/receive-shipment">
-                    <ReceiveShipment newShipment={this.newShipment} />
+                    <ReceiveShipment newShipment={this.newShipment} itemList={this.state.itemList} />
                 </Route>
                 <Route exact path="/returns">
                     <ReturnView returnItems={this.state.returnItems} setSelected={this.setSelected}/>

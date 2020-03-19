@@ -4,13 +4,18 @@ import { Link } from 'react-router-dom'
 import Datetime from 'react-datetime';
 import 'react-datetime/css/react-datetime.css';
 
+
 export default class ReceiveShipment extends React.Component{
+    constructor(props){
+        super(props)
+        console.log("hello", this.props.itemList)
+    }
     state = {
         name: '',
         received: '',
         date: '',
         quantity: 0,
-        vendor: ''
+        vendor: '',
     }
 
     onChange = (e) => this.setState({[e.target.name]: e.target.value})
@@ -38,7 +43,10 @@ export default class ReceiveShipment extends React.Component{
                                 Item Name
                             </Form.Label>
                             <Col sm="9">
-                                <Form.Control name="name" onChange={this.onChange} required></Form.Control>
+                                <Form.Control as="select" name="name" onChange={this.onChange} required>
+                                    {this.props.itemList.map((el) => (<option key={el._id}>{el.name}</option> ))}
+                                <option>Other</option>
+                                </Form.Control>
                                 <Form.Control.Feedback type="invalid">Please enter a valid input</Form.Control.Feedback>
                             </Col>
                         </Form.Group>
@@ -48,7 +56,10 @@ export default class ReceiveShipment extends React.Component{
                                 Vendor
                             </Form.Label>
                             <Col sm="9">
-                                <Form.Control name="vendor" onChange={this.onChange} required></Form.Control>
+                                <Form.Control as="select" name="vendor" onChange={this.onChange} required>
+                                {this.props.itemList.map((el) => (<option key={el._id}>{el.vendor}</option> ))}
+                                <option>Other</option>
+                                </Form.Control>
                                 <Form.Control.Feedback type="invalid">Please enter a valid input</Form.Control.Feedback>
                             </Col>
                         </Form.Group>
