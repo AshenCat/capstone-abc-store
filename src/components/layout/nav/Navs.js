@@ -41,7 +41,7 @@ export default class Navs extends Component {
         return (
             <ListGroup as="ul">
                 <ListGroup.Item className="text-center" style={{"background":"#d3d3d3"}}><h5>Navigation</h5></ListGroup.Item>
-                <ListGroup.Item as="li"  className="text-center"><Link  to="/home">Inventory List</Link></ListGroup.Item>
+                <ListGroup.Item as="li"  className="text-center"><Link  to="/">Inventory List</Link></ListGroup.Item>
                 <this.ViewManager/>
             </ListGroup>
         )

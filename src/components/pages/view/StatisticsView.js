@@ -1,5 +1,5 @@
 import React from 'react'
-import { Row, Col, ListGroup, FormControl, Card, InputGroup, Container } from 'react-bootstrap';
+import { Row, Col, ListGroup, FormControl, Card, InputGroup} from 'react-bootstrap';
 import { Link } from 'react-router-dom'
 import { FaSearch } from 'react-icons/fa'
 
@@ -33,7 +33,7 @@ export default class StatisticsView extends React.Component{
             this.setState({
                 itemState: res.data
             })
-            console.log(this.state.itemState.currData)
+            //console.log(this.state.itemState.currData)
         })
     }
 
@@ -53,7 +53,7 @@ export default class StatisticsView extends React.Component{
                 height={220}>
                 <VictoryAxis 
                     tickValues={data.map((item,ctr)=>ctr)}
-                    tickFormat={data.map((item,ctr)=>ctr)}/>
+                    tickFormat={data.map((item)=>item.date.substring(0,7))}/>
                 <VictoryAxis
                     dependentAxis
                     tickFormat={(x)=>(`${x}`)}/>
@@ -71,13 +71,6 @@ export default class StatisticsView extends React.Component{
         )
     }
 
-    chartLegend = () => {
-        const data = this.state.itemState.shipmentData ? [...this.state.itemState.shipmentData]: []
-        return  <>
-                    {data.map((item,ctr) => <Col key={item._id}>{ctr} - {item.date}</Col> )}
-                </>
-    }
-
     thisCount = () => {
         const data = this.state.itemState.currData ? [...this.state.itemState.currData]: []
         return  <React.Fragment>
@@ -85,9 +78,23 @@ export default class StatisticsView extends React.Component{
                 </React.Fragment>
     }
 
-    render() {
-        
+    thisStatus = () => {
+        const data = this.state.itemState.returnData ? [...this.state.itemState.returnData]: []
+        //console.log(data)
+        return  <React.Fragment>
+                    {data.map(item=><React.Fragment key={item._id}>{item !== [] ? item.status : "N/A"}, </React.Fragment>)}
+                </React.Fragment>
+    }
 
+    thisRequest = () => {
+        const data = this.state.itemState.requestData ? [...this.state.itemState.requestData] : []
+        data.map(item=>console.log(item))
+        return  <React.Fragment>
+                    {data.map(item=><React.Fragment key={item._id}>{item !== [] ? item.status + "/" + item.quantity  : "N/A"}</React.Fragment>)}
+                </React.Fragment>
+    }
+
+    render() {
         return(
             <Row>
                 <Col sm={3}>
@@ -117,14 +124,20 @@ export default class StatisticsView extends React.Component{
                         </Card.Header>
                         <Card.Body>
                             <this.chartView/>
-                            <Container>
-                                Legend:
-                                <Row>
-                                    <this.chartLegend />
-                                </Row> 
-                            </Container>
+                            <h3>
+                                Other Details
+                            </h3>
                             <Row>
-                                <Col>Current Stock: <this.thisCount/></Col>
+                                <Col sm={4}><p className="text-right">Current Stock:</p></Col>
+                                <Col sm><p className="text-left"><this.thisCount/></p></Col>
+                            </Row>
+                            <Row>
+                                <Col sm={4}><p className="text-right">Return Status:</p></Col>
+                                <Col sm><p className="text-left"><this.thisStatus/></p></Col>
+                            </Row>
+                            <Row>
+                                <Col sm={4}><p className="text-right">Return Status (status/quantity):</p></Col>
+                                <Col sm><p className="text-left"><this.thisRequest/></p></Col>
                             </Row>
                         </Card.Body>
                         <Card.Footer>

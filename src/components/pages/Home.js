@@ -173,7 +173,7 @@ class Home extends Component {
     ViewController = () => {
         if(this.props.access === "Department Manager") return (
             <figure className="ml-3">
-                <Route exact path="/home">
+                <Route exact path="/">
                     <TableView itemList={this.state.itemList} setSelected={this.setSelected}/>
                 </Route>
                 <Route path="/items/">
@@ -209,7 +209,7 @@ class Home extends Component {
         )
         else if (this.props.access === "Warehouse Associate") return (
             <figure className="ml-3">
-                <Route exact path="/home">
+                <Route exact path="/">
                     <TableView itemList={this.state.itemList} setSelected={this.setSelected}/>
                 </Route>
                 <Route path="/items/">
@@ -241,7 +241,7 @@ class Home extends Component {
         )
         else if (this.props.access === "Store Clerk") return(
             <figure className="ml-3">
-                <Route exact path="/home">
+                <Route exact path="/">
                     <TableView itemList={this.state.itemList} setSelected={this.setSelected}/>
                 </Route>
                 <Route path="/items/">
@@ -259,6 +259,7 @@ class Home extends Component {
                 </Route>
                 <Route exact path="/request-item" 
                     render={(props)=> <Requests 
+                        itemList={this.state.itemList}
                         requestItem={this.requestItem}
                         access={this.props.access}/>}  />
             </figure>

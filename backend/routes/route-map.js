@@ -379,11 +379,13 @@ server.route('/statistics/get-item-statistics').post((req,res,next)=>{
         Model.returnModel().find({name:req.body.name, vendor: req.body.vendor}, 'status'),
         Model.requestModel().find({name:req.body.name, vendor: req.body.vendor}, 'quantity status')
     ]).then((result)=>{
-        stat = {};
+        let stat = {};
         stat.currData = result[0];
         stat.shipmentData = result[1];
         stat.returnData = result[2];
         stat.requestData = result[3];
+        console.log("===========================================================")
+        console.log(stat)
         res.json(stat)
     })
     //console.log(req.body)
