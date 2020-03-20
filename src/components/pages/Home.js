@@ -255,12 +255,15 @@ class Home extends Component {
                     <VendorReturn 
                         item={this.state.returnItems.filter(it => it._id === window.location.pathname.split("/")[2])} 
                         access={this.props.access} 
-                        storeReturn={this.storeReturn} />
+                        storeReturn={this.storeReturn}
+                        itemList={this.state.itemList} />
                 </Route>
                 <Route exact path="/request-item" 
                     render={(props)=> <Requests 
                         requestItem={this.requestItem}
-                        access={this.props.access}/>}  />
+                        access={this.props.access}
+                        itemList={this.state.itemList}
+                        />}  />
             </figure>
         )
     }

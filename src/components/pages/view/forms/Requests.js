@@ -44,6 +44,7 @@ export default class Request extends React.Component {
     onChange = (e) => this.setState({[e.target.name]: e.target.value})
 
     render() {
+        const rArr = [...new Set(this.props.itemList.map(data=>data.vendor))];
         return (
             <Card>
                 <Card.Header>
@@ -55,7 +56,9 @@ export default class Request extends React.Component {
                                 Item Name
                             </Form.Label>
                             <Col sm="9">
-                                <Form.Control name="name"  defaultValue={this.state.name} onChange={this.onChange} required/>
+                                <Form.Control as="select" name="name"  defaultValue={this.state.name} onChange={this.onChange} required>
+                                    {this.props.itemList.map((el) => (<option key={el._id}>{el.name}</option> ))}
+                                </Form.Control>
                             </Col>
                         </Form.Group>
 
@@ -64,7 +67,9 @@ export default class Request extends React.Component {
                                 Vendor
                             </Form.Label>
                             <Col sm="9">
-                                <Form.Control name="vendor" defaultValue={this.state.vendor} onChange={this.onChange} required/>
+                                <Form.Control as="select" name="vendor" defaultValue={this.state.vendor} onChange={this.onChange} required>
+                                {rArr.map((data,ctr)=> <option key={ctr}>{data}</option>)}
+                                </Form.Control>
                             </Col>
                         </Form.Group>
 
