@@ -6,10 +6,6 @@ import 'react-datetime/css/react-datetime.css';
 
 
 export default class ReceiveShipment extends React.Component{
-    constructor(props){
-        super(props)
-        console.log("hello", this.props.itemList)
-    }
     state = {
         name: '',
         received: '',
@@ -32,7 +28,7 @@ export default class ReceiveShipment extends React.Component{
     }
 
     render(){
-        
+        const rArr = [...new Set(this.props.itemList.map(data=>data.vendor))];
         return(
             <Card>
                 <Card.Header>Receive Shipment</Card.Header>
@@ -45,7 +41,6 @@ export default class ReceiveShipment extends React.Component{
                             <Col sm="9">
                                 <Form.Control as="select" name="name" onChange={this.onChange} required>
                                     {this.props.itemList.map((el) => (<option key={el._id}>{el.name}</option> ))}
-                                <option>Other</option>
                                 </Form.Control>
                                 <Form.Control.Feedback type="invalid">Please enter a valid input</Form.Control.Feedback>
                             </Col>
@@ -57,8 +52,7 @@ export default class ReceiveShipment extends React.Component{
                             </Form.Label>
                             <Col sm="9">
                                 <Form.Control as="select" name="vendor" onChange={this.onChange} required>
-                                {this.props.itemList.map((el) => (<option key={el._id}>{el.vendor}</option> ))}
-                                <option>Other</option>
+                                {rArr.map((data,ctr)=> <option key={ctr}>{data}</option>)}
                                 </Form.Control>
                                 <Form.Control.Feedback type="invalid">Please enter a valid input</Form.Control.Feedback>
                             </Col>

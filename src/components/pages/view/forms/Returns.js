@@ -43,6 +43,8 @@ export default class VendorReturn extends React.Component{
     }
 
     render(){
+        const rArr = this.props.itemList ? [...new Set(this.props.itemList.map(data=>data.vendor))] : [];
+        const cArr = this.props.itemList ? [...this.props.itemList] : [];
         return (
             <Card>
                 <Card.Header>
@@ -54,7 +56,10 @@ export default class VendorReturn extends React.Component{
                                 Item Name
                             </Form.Label>
                             <Col sm="9">
-                                <Form.Control name="name" onChange={this.onChange} defaultValue={this.state.name} required  disabled={this.props.access === "Warehouse Associate"}></Form.Control>
+                                <Form.Control as="select" name="name" onChange={this.onChange} required  disabled={this.props.access === "Warehouse Associate"}>
+                                    {this.props.access === "Warehouse Associate" ? <option selected>{this.state.name}</option> : ""}
+                                    {cArr.map((el) => (<option key={el._id}>{el.name}</option> ))}
+                                </Form.Control>
                                 <Form.Control.Feedback type="invalid">Please enter a valid input</Form.Control.Feedback>
                             </Col>
                         </Form.Group>
@@ -64,7 +69,10 @@ export default class VendorReturn extends React.Component{
                                 Vendor
                             </Form.Label>
                             <Col sm="9">
-                                <Form.Control name="vendor" onChange={this.onChange} required defaultValue={this.state.vendor} disabled={this.props.access === "Warehouse Associate"}></Form.Control>
+                                <Form.Control as="select" name="vendor" onChange={this.onChange} required disabled={this.props.access === "Warehouse Associate"}>
+                                {this.props.access === "Warehouse Associate" ? <option selected>{this.state.vendor}</option> : ""}
+                                {rArr.map((data,ctr)=> <option key={ctr}>{data}</option>)}
+                                </Form.Control>
                                 <Form.Control.Feedback type="invalid">Please enter a valid input</Form.Control.Feedback>
                             </Col>
                         </Form.Group>
