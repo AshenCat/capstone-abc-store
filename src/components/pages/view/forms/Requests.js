@@ -38,17 +38,25 @@ export default class Request extends React.Component {
                 status: this.state.status
             })
         }
-        window.history.back();
+        this.props.setMessage("Request Successful")
+        this.props.setShowToast(true)
     }
 
     onChange = (e) => this.setState({[e.target.name]: e.target.value})
 
+    btnReturn = () => {
+                return (this.props.access === "Store Clerk" ? 
+                <Link className="btn btn-secondary btn-lg" to="/">Return</Link> : 
+                <Link className="btn btn-secondary btn-lg" to="/tickets">Return</Link>)
+    }
+
     render() {
-        const rArr = [...new Set(this.props.itemList.map(data=>data.vendor))];
+        const rArr = this.props.itemList ? [...new Set(this.props.itemList.map(data=>data.vendor))] : [];
+        const cArr = this.props.itemList ? [...this.props.itemList] : [];
         return (
             <Card>
                 <Card.Header>
-                    Item Request Form
+                    Item Request
                 </Card.Header>
                 <Form onSubmit={this.onSubmit} role="form" className="mt-3">
                         <Form.Group as={Row} controlId="formName"  className="mr-3">
@@ -56,8 +64,9 @@ export default class Request extends React.Component {
                                 Item Name
                             </Form.Label>
                             <Col sm="9">
-                                <Form.Control as="select" name="name"  defaultValue={this.state.name} onChange={this.onChange} required>
-                                    {this.props.itemList.map((el) => (<option key={el._id}>{el.name}</option> ))}
+                                <Form.Control as="select" name="name" defaultValue={this.state.name} onChange={this.onChange} required>
+                                    {this.props.access === "Department Manager" ? <option selected>{this.state.name}</option> : ""}
+                                    {cArr.map((el) => (<option key={el._id}>{el.name}</option> ))}
                                 </Form.Control>
                             </Col>
                         </Form.Group>
@@ -68,6 +77,7 @@ export default class Request extends React.Component {
                             </Form.Label>
                             <Col sm="9">
                                 <Form.Control as="select" name="vendor" defaultValue={this.state.vendor} onChange={this.onChange} required>
+                                    {this.props.access === "Warehouse Associate" ? <option selected>{this.state.vendor}</option> : ""}
                                 {rArr.map((data,ctr)=> <option key={ctr}>{data}</option>)}
                                 </Form.Control>
                             </Col>
@@ -108,7 +118,7 @@ export default class Request extends React.Component {
                                     <Button size="lg" type="submit" variant="primary">Submit</Button>
                                 </Col>
                                 <Col className="text-center">
-                                    <Link className="btn btn-secondary btn-lg" to="/tickets">Return</Link>
+                                    <this.btnReturn/>
                                 </Col>
                             </Row>
                         </Card.Footer>

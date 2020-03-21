@@ -39,7 +39,7 @@ export default class Header extends Component{
                 <React.Fragment>
                     <Row className="w-100">
                         <Col>
-                            <Navbar.Brand>{this.props.title}</Navbar.Brand>
+                            <Navbar.Brand>Inventory Management System</Navbar.Brand>
                         </Col>
                         <Col className="m-0 p-0">
                             <Navbar.Brand className="float-right" style={{'color':'white'}}>{this.state.date}</Navbar.Brand>

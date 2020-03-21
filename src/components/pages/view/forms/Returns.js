@@ -39,8 +39,15 @@ export default class VendorReturn extends React.Component{
                 _id: this.props.item[0]._id,
                 status: this.state.status
             })
-        window.history.back();
+        this.props.setMessage("Return Successful")
+        this.props.setShowToast(true)
     }
+
+    btnReturn = () => {
+        return (this.props.access === "Store Clerk" ? 
+        <Link className="btn btn-secondary btn-lg" to="/">Return</Link> : 
+        <Link className="btn btn-secondary btn-lg" to="/returns">Return</Link>)
+}
 
     render(){
         const rArr = this.props.itemList ? [...new Set(this.props.itemList.map(data=>data.vendor))] : [];
@@ -119,7 +126,7 @@ export default class VendorReturn extends React.Component{
                                     <Button size="lg" type="submit" variant="primary">Submit</Button>
                                 </Col>
                                 <Col className="text-center">
-                                    <Link className="btn btn-secondary btn-lg" to="/returns">Return</Link>
+                                    <this.btnReturn/>
                                 </Col>
                             </Row>
                         </Card.Footer>

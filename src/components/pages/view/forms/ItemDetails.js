@@ -31,12 +31,14 @@ export default class ItemDetails extends Component{
             vendor: this.state.vendor,
         }
         this.props.updateData(item);
-        window.history.back();
+        this.props.setMessage("Update Successful")
+        this.props.setShowToast(true)
     }
 
     onDelete = () => {
         this.props.deleteData(this.state._id)
-        window.history.back();
+        this.props.setMessage("Successfully Deleted")
+        this.props.setShowToast(true)
     }
 
     onChange = (e) => this.setState({[e.target.name]: e.target.value});
@@ -51,7 +53,7 @@ export default class ItemDetails extends Component{
                     <Button size="lg" onClick={this.onDelete} variant="danger">Delete</Button>
                 </Col>
                 <Col className="text-center">
-                    <Link className="btn btn-secondary btn-lg" to="/home">Return</Link>
+                    <Link className="btn btn-secondary btn-lg" to="/">Return</Link>
                 </Col>
             </React.Fragment>
         )
@@ -61,7 +63,7 @@ export default class ItemDetails extends Component{
                     <Button size="lg" type="submit" variant="primary">Update</Button>
                 </Col>
                 <Col className="text-center">
-                    <Link className="btn btn-secondary btn-lg" onClick={() => window.history.back()} to="/home">Return</Link>
+                    <Link className="btn btn-secondary btn-lg" onClick={() => window.history.back()} to="/">Return</Link>
                 </Col>
             </React.Fragment>
         )

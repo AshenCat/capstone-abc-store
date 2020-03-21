@@ -25,7 +25,8 @@ export default class AddItem extends Component{
         }
         console.log(item)
         this.props.addData(item);
-        window.history.back();
+        this.props.setMessage("Add Successful")
+        this.props.setShowToast(true)
     }
 
     onChange = (e) => this.setState({[e.target.name]: e.target.value});
@@ -96,10 +97,10 @@ export default class AddItem extends Component{
                     <Card.Footer>
                         <Row>
                             <Col className="text-center">
-                                <Button size="lg" type="submit" variant="primary">Update</Button>
+                                <Button size="lg" type="submit" variant="primary">Add</Button>
                             </Col>
                             <Col className="text-center">
-                                <Link className="btn btn-secondary btn-lg" to="/home">Return</Link>
+                                <Link className="btn btn-secondary btn-lg" to="/">Return</Link>
                             </Col>
                         </Row>
                     </Card.Footer>

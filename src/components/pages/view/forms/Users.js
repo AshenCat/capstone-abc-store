@@ -26,7 +26,8 @@ export default class Users extends Component {
             this.setState({userList: [...this.state.userList.filter(us => us._id !== key)]})
         )
         //this.setState({userList: [...this.state.userList.filter(us => us._id === key)]})
-        window.history.back();
+        this.props.setMessage("Delete Successful")
+        this.props.setShowToast(true)
     }
 
     back = () => {
@@ -43,6 +44,8 @@ export default class Users extends Component {
         Axios.post(`${this.props.api}/user/add-user/`, user).then(
             this.setState({userList: [...this.state.userList, user]})
         )
+        this.props.setMessage("Add Successful")
+        this.props.setShowToast(true)
         //this.setState({userList: [...this.state.userList, user]})
     }
     

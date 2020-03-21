@@ -32,3 +32,15 @@ table {
 .list-group {
   min-width: 150px;
 }
+
+.fixed-toaster {
+  position: fixed;
+  bottom: 60px;
+  left: 20px;
+  z-index: 3;
+  border-radius: 16px;
+  background-color:#617078;
+  color:white;
+  font-weight:bold;
+  padding: 8px;
+}

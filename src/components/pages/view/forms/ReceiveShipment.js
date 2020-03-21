@@ -20,7 +20,8 @@ export default class ReceiveShipment extends React.Component{
         e.preventDefault()
         console.log(this.state)
         this.props.newShipment(this.state)
-        window.history.back()
+        this.props.setMessage("Receive Successful")
+        this.props.setShowToast(true)
     }
 
     getDate = (date) => {
@@ -91,7 +92,7 @@ export default class ReceiveShipment extends React.Component{
                                 <Button size="lg" type="submit" variant="primary">Submit</Button>
                             </Col>
                             <Col className="text-center">
-                                <Link className="btn btn-secondary btn-lg" to="/home">Return</Link>
+                                <Link className="btn btn-secondary btn-lg" to="/">Return</Link>
                             </Col>
                         </Row>
                     </Form>

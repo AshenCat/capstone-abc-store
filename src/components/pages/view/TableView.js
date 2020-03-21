@@ -33,7 +33,10 @@ export default class TableView extends Component {
                         {this.props.itemList.filter(item=>
                             item.name.toLowerCase().includes(this.state.search.trim()) || 
                             item.vendor.toLowerCase().includes(this.state.search.trim())).map((item)=>(
-                            <Item key={item._id} item={item} setSelected={this.props.setSelected}/>))}
+                            <Item key={item._id} item={item} 
+                            setSelected={this.props.setSelected}
+                            setShowToast={this.props.setShowToast}
+                            setMessage={this.props.setMessage}/>))}
                     </tbody>
                 </Table>
             </figure>

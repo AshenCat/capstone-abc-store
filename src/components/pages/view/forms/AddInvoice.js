@@ -26,7 +26,8 @@ export default class AddInvoice extends React.Component {
             delete invoice.date
         console.log(invoice)
         this.props.addNewInvoice(invoice)
-        window.history.back()
+        this.props.setMessage("Add Successful")
+        this.props.setShowToast(true)
     }
 
     onChange = (e) => this.setState({[e.target.name] : e.target.value})

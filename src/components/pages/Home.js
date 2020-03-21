@@ -17,6 +17,7 @@ import ReturnView from './view/ReturnView';
 import Requests from './view/forms/Requests'
 import RequestsView from './view/RequestsView'
 import StatisticsView from './view/StatisticsView';
+import Toaster from '../layout/Toast';
 
 class Home extends Component {
     constructor(props){
@@ -40,17 +41,18 @@ class Home extends Component {
     }
 
     state = {
+        message: "",
+        showToast: false,
         itemList:[],
         invoices: [],
         returnItems: [],
         requestItems: [],
         id: '',
     }
-
-
     
     setSelected = (id) => this.setState({id})
-    
+    setShowToast = (probablyABoolean) => this.setState({showToast:probablyABoolean})
+    setMessage = (message) => this.setState({message})
 
     /*****************************************************************
      * 
@@ -174,68 +176,103 @@ class Home extends Component {
         if(this.props.access === "Department Manager") return (
             <figure className="ml-3">
                 <Route exact path="/">
-                    <TableView itemList={this.state.itemList} setSelected={this.setSelected}/>
+                    <TableView 
+                    itemList={this.state.itemList}
+                    setSelected={this.setSelected}
+                    setShowToast={this.setShowToast}
+                    setMessage={this.setMessage}/>
                 </Route>
                 <Route path="/items/">
                     <ItemDetails 
                         access={this.props.access}
                         item={[...this.state.itemList.filter(it => it._id === window.location.pathname.split("/")[2])]} 
                         updateData={this.updateData}
-                        deleteData={this.deleteData}/>
+                        deleteData={this.deleteData}
+                        setShowToast={this.setShowToast}
+                        setMessage={this.setMessage}
+                        />
                 </Route>
                 <Route exact path="/add-item">
-                    <AddItem addData={this.addData}/>
+                    <AddItem 
+                    addData={this.addData}
+                    setShowToast={this.setShowToast}
+                    setMessage={this.setMessage}/>
                 </Route>
                 <Route exact path="/users">
-                    <Users api={this.props.api}/>
+                    <Users
+                    api={this.props.api}
+                    setShowToast={this.setShowToast}
+                    setMessage={this.setMessage}/>
                 </Route>
                 <Route exact path="/tickets" 
                     render={(props) => 
                     <RequestsView 
                     requestList={this.state.requestItems}
-                    setSelected={this.setSelected} />}/>
+                    setSelected={this.setSelected}
+                    setShowToast={this.setShowToast}
+                    setMessage={this.setMessage}/>}/>
                 <Route path="/requests" 
                     render={(props)=>
                         <Requests
                             access={this.props.access} 
                             item={[...this.state.requestItems.filter(it => it._id === window.location.pathname.split("/")[2])]} 
-                            updateRequestStatus={this.updateRequestStatus}/>}/>
+                            updateRequestStatus={this.updateRequestStatus}
+                            setShowToast={this.setShowToast}
+                            setMessage={this.setMessage}/>}/>
                 <Route exact path="/stats"
                     render={(props)=>
                         <StatisticsView 
                             itemList={this.state.itemList}
-                            api={this.props.api}/>} />
+                            api={this.props.api}
+                            setShowToast={this.setShowToast}
+                            setMessage={this.setMessage}/>} />
             </figure>
         )
         else if (this.props.access === "Warehouse Associate") return (
             <figure className="ml-3">
                 <Route exact path="/">
-                    <TableView itemList={this.state.itemList} setSelected={this.setSelected}/>
+                    <TableView 
+                    itemList={this.state.itemList}
+                    setSelected={this.setSelected}
+                    setShowToast={this.setShowToast}
+                    setMessage={this.setMessage}/>
                 </Route>
                 <Route path="/items/">
                     <ItemDetails 
                         access={this.props.access}
                         item={[...this.state.itemList.filter(it => it._id === window.location.pathname.split("/")[2])]} 
                         updateData={this.updateData}
-                        deleteData={this.deleteData} />
+                        deleteData={this.deleteData}
+                        setShowToast={this.setShowToast}
+                        setMessage={this.setMessage}/>
                 </Route>
                 <Route exact path="/invoices">
                     <InvoiceView invoices={this.state.invoices} />
                 </Route>
                 <Route exact path="/invoice">
-                    <AddInvoice addNewInvoice={this.addNewInvoice} />
+                    <AddInvoice addNewInvoice={this.addNewInvoice} 
+                    setShowToast={this.setShowToast}
+                    setMessage={this.setMessage}/>
                 </Route>
                 <Route exact path="/receive-shipment">
-                    <ReceiveShipment newShipment={this.newShipment} itemList={this.state.itemList} />
+                    <ReceiveShipment newShipment={this.newShipment} 
+                    itemList={this.state.itemList} 
+                    setShowToast={this.setShowToast}
+                    setMessage={this.setMessage}/>
                 </Route>
                 <Route exact path="/returns">
-                    <ReturnView returnItems={this.state.returnItems} setSelected={this.setSelected}/>
+                    <ReturnView returnItems={this.state.returnItems} 
+                    setSelected={this.setSelected}
+                    setShowToast={this.setShowToast}
+                    setMessage={this.setMessage}/>
                 </Route>
                 <Route path="/return/">
                         <VendorReturn 
                             item={[...this.state.returnItems.filter(it => it._id === window.location.pathname.split("/")[2])]} 
                             access={this.props.access} 
-                            returnToVendor={this.returnToVendor} />
+                            returnToVendor={this.returnToVendor}
+                            setShowToast={this.setShowToast}
+                            setMessage={this.setMessage}/>
                 </Route>
             </figure>
         )
@@ -249,22 +286,26 @@ class Home extends Component {
                         access={this.props.access}
                         item={[...this.state.itemList.filter(it => it._id === window.location.pathname.split("/")[2])]} 
                         updateData={this.updateData}
-                        deleteData={this.deleteData} />
+                        deleteData={this.deleteData}
+                        setShowToast={this.setShowToast}
+                        setMessage={this.setMessage}/>
                 </Route>
                 <Route exact path="/return-item">
                     <VendorReturn 
                         item={this.state.returnItems.filter(it => it._id === window.location.pathname.split("/")[2])} 
                         access={this.props.access} 
                         storeReturn={this.storeReturn}
-                        itemList={this.state.itemList} />
+                        itemList={this.state.itemList}
+                        setShowToast={this.setShowToast}
+                        setMessage={this.setMessage}/>
                 </Route>
                 <Route exact path="/request-item" 
                     render={(props)=> <Requests 
                         itemList={this.state.itemList}
                         requestItem={this.requestItem}
                         access={this.props.access}
-                        itemList={this.state.itemList}
-                        />}  />
+                        setShowToast={this.setShowToast}
+                        setMessage={this.setMessage}/>}  />
             </figure>
         )
     }
@@ -285,10 +326,13 @@ class Home extends Component {
                         </Col>
                     </Row>
                 </Router>
+                <Toaster    message={this.state.message} 
+                            showToast={this.state.showToast}
+                            setShowToast={this.setShowToast}/>
                 <div className="fixed-bottom">  
                     <Navbar bg="dark" variant="dark">
                         <Container>
-                            <NavbarBrand className="text-right">Team Weebie &copy; 2020</NavbarBrand>
+                            <NavbarBrand className="text-right">Inventory Management System &copy; 2020</NavbarBrand>
                         </Container>
                     </Navbar>
                 </div>

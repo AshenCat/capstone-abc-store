@@ -141,7 +141,7 @@ export default class StatisticsView extends React.Component{
                             </Row>
                         </Card.Body>
                         <Card.Footer>
-                            <Link className="btn btn-sm btn-secondary" to="/home">return</Link>
+                            <Link className="btn btn-sm btn-secondary" to="/">return</Link>
                         </Card.Footer>
                     </Card>
                 </Col>
