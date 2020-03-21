@@ -214,6 +214,7 @@ class Home extends Component {
                 <Route path="/requests" 
                     render={(props)=>
                         <Requests
+                            itemList={this.state.itemList}
                             access={this.props.access} 
                             item={[...this.state.requestItems.filter(it => it._id === window.location.pathname.split("/")[2])]} 
                             updateRequestStatus={this.updateRequestStatus}

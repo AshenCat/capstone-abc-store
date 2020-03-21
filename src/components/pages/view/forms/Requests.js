@@ -64,9 +64,8 @@ export default class Request extends React.Component {
                                 Item Name
                             </Form.Label>
                             <Col sm="9">
-                                <Form.Control as="select" name="name" defaultValue={this.state.name} onChange={this.onChange} required>
-                                    {this.props.access === "Department Manager" ? <option selected>{this.state.name}</option> : ""}
-                                    {cArr.map((el) => (<option key={el._id}>{el.name}</option> ))}
+                                <Form.Control name="name" onChange={this.onChange} required
+                                value={this.props.access === "Department Manager" ? this.state.name : ""} disabled>
                                 </Form.Control>
                             </Col>
                         </Form.Group>
@@ -76,9 +75,8 @@ export default class Request extends React.Component {
                                 Vendor
                             </Form.Label>
                             <Col sm="9">
-                                <Form.Control as="select" name="vendor" defaultValue={this.state.vendor} onChange={this.onChange} required>
-                                    {this.props.access === "Warehouse Associate" ? <option selected>{this.state.vendor}</option> : ""}
-                                {rArr.map((data,ctr)=> <option key={ctr}>{data}</option>)}
+                                <Form.Control name="vendor" onChange={this.onChange} required
+                                value={this.props.access === "Department Manager" ? this.state.vendor : ""} disabled>
                                 </Form.Control>
                             </Col>
                         </Form.Group>

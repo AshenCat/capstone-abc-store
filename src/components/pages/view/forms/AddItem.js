@@ -76,15 +76,6 @@ export default class AddItem extends Component{
                         </Col>
                     </Form.Group>
 
-                    <Form.Group as={Row} controlId="formLastShipment">
-                        <Form.Label column sm="3" className="text-right">
-                            Last Shipment
-                        </Form.Label>
-                        <Col sm="9">
-                            <Form.Control  name="lastShipment" plaintext readOnly defaultValue={this.state.lastShipment}></Form.Control>
-                        </Col>
-                    </Form.Group>
-
                     <Form.Group as={Row} controlId="formIsle">
                         <Form.Label column sm="3" className="text-right">
                             Aisle
@@ -94,6 +85,11 @@ export default class AddItem extends Component{
                             <Form.Control.Feedback type="invalid">Please enter a valid input</Form.Control.Feedback>
                         </Col>
                     </Form.Group>
+                    
+                    <Form.Group as={Row} controlId="formLastShipment">
+                        <Form.Control name="lastShipment" defaultValue={this.state.lastShipment} hidden></Form.Control>
+                    </Form.Group>
+                    
                     <Card.Footer>
                         <Row>
                             <Col className="text-center">

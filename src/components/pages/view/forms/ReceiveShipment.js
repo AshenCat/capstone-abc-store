@@ -53,7 +53,7 @@ export default class ReceiveShipment extends React.Component{
                             </Form.Label>
                             <Col sm="9">
                                 <Form.Control as="select" name="vendor" onChange={this.onChange} required>
-                                {rArr.map((data,ctr)=> <option key={ctr}>{data}</option>)}
+                                    {rArr.map((data,ctr)=> <option key={ctr}>{data}</option>)}
                                 </Form.Control>
                                 <Form.Control.Feedback type="invalid">Please enter a valid input</Form.Control.Feedback>
                             </Col>
