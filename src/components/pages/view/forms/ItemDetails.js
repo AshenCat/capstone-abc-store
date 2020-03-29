@@ -39,6 +39,7 @@ export default class ItemDetails extends Component{
         this.props.deleteData(this.state._id)
         this.props.setMessage("Successfully Deleted")
         this.props.setShowToast(true)
+        window.history.back();
     }
 
     onChange = (e) => this.setState({[e.target.name]: e.target.value});
