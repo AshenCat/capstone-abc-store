@@ -6,8 +6,8 @@ export default class Request extends React.Component {
         const { name, vendor, quantity, status, _id } = this.props.item;
         return (
             <tr>
-                <td>{name}</td>
                 <td>{vendor}</td>
+                <td>{name}</td>
                 <td>{quantity}</td>
                 <td>{status}</td>
                 <td><Link className="btn btn-secondary btn-sm" to={'/requests/' + _id}  onClick={this.props.setSelected.bind(this, _id)}>View Item</Link></td>
