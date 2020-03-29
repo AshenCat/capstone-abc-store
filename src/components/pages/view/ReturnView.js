@@ -19,7 +19,7 @@ export default class ReturnView extends React.Component{
                     </tr>
                 </thead>
                 <tbody>
-                    {this.props.returnItems.map(item=><ReturnItem key={item._id} item={item} setSelected={this.props.setSelected}/>)}
+                    {this.props.returnItems.sort((a,b) => a.vendor.localeCompare(b.vendor) || a.vendor - b.vendor).map(item=><ReturnItem key={item._id} item={item} setSelected={this.props.setSelected}/>)}
                 </tbody>
             </Table>
             <Link className="btn btn-secondary" to="/">Return</Link>

@@ -18,7 +18,7 @@ export default class RequestsView extends React.Component{
                     </tr>
                 </thead>
                 <tbody>
-                    {this.props.requestList.map(item => <Request item={item} key={item._id} setSelected={this.props.setSelected}/>)}
+                    {this.props.requestList.sort((a,b) => a.vendor.localeCompare(b.vendor) || a.vendor - b.vendor).map(item => <Request item={item} key={item._id} setSelected={this.props.setSelected}/>)}
                 </tbody>
             </Table>
             <Link className="btn btn-secondary" to="/">Return</Link>

@@ -18,7 +18,7 @@ export default class InvoiceView extends React.Component {
                     </thead>
                     <tbody>
                         
-                        {this.props.invoices.map(invoice => <Invoice key={invoice._id} invoice={invoice} /> )}
+                        {this.props.invoices.sort((a,b) => a.vendor.localeCompare(b.vendor) || a.vendor - b.vendor).map(invoice => <Invoice key={invoice._id} invoice={invoice} /> )}
                     </tbody>
                 </Table>
                 <Container>
