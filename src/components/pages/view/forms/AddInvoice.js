@@ -71,7 +71,7 @@ export default class AddInvoice extends React.Component {
                                     <Form.Control.Feedback type="invalid">Please enter a valid input</Form.Control.Feedback>
                                 </Col>
                             </Form.Group>
-                            <Form.Group as={Row}>
+                            {/* <Form.Group as={Row}>
                                 <Form.Label column sm="3" className="text-right">
                                     Upload File
                                 </Form.Label>
@@ -79,7 +79,7 @@ export default class AddInvoice extends React.Component {
                                     <Form.Control name="upload" onChange={this.onChange} defaultValue={this.state.upload}></Form.Control>
                                     <Form.Control.Feedback type="invalid">Please enter a valid input</Form.Control.Feedback>
                                 </Col>
-                            </Form.Group>
+                            </Form.Group> */}
                             <Row>
                                 <Col className="text-center">
                                     <Button size="lg" type="submit" variant="primary">Add Invoice</Button>

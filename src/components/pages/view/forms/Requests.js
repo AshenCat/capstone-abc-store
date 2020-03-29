@@ -57,6 +57,7 @@ export default class Request extends React.Component {
   };
 
   render() {
+    const rArr = this.props.itemList ? [...new Set(this.props.itemList.map(data=>data.vendor))] : [];
     return (
       <Card>
         <Card.Header>Item Request</Card.Header>
@@ -67,6 +68,7 @@ export default class Request extends React.Component {
             </Form.Label>
             <Col sm="9">
               <Form.Control
+                as="select"
                 name="name"
                 onChange={this.onChange}
                 required
@@ -75,8 +77,9 @@ export default class Request extends React.Component {
                     ? this.state.name
                     : ""
                 }
-                disabled={this.props.access === "Department Manager"}
-              ></Form.Control>
+                disabled={this.props.access === "Department Manager"}>
+                  {this.props.itemList.map((el) => (<option key={el._id}>{el.name}</option> ))}
+              </Form.Control>
             </Col>
           </Form.Group>
 
@@ -86,6 +89,7 @@ export default class Request extends React.Component {
             </Form.Label>
             <Col sm="9">
               <Form.Control
+                as="select"
                 name="vendor"
                 onChange={this.onChange}
                 required
@@ -94,8 +98,9 @@ export default class Request extends React.Component {
                     ? this.state.vendor
                     : ""
                 }
-                disabled={this.props.access === "Department Manager"}
-              ></Form.Control>
+                disabled={this.props.access === "Department Manager"}>
+                {rArr.map((data,ctr)=> <option key={ctr}>{data}</option>)}
+              </Form.Control>
             </Col>
           </Form.Group>
 
