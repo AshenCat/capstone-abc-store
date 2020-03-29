@@ -78,6 +78,7 @@ export default class Request extends React.Component {
                     : ""
                 }
                 disabled={this.props.access === "Department Manager"}>
+                <option>Choose one...</option>
                   {this.props.itemList.map((el) => (<option key={el._id}>{el.name}</option> ))}
               </Form.Control>
             </Col>
@@ -99,6 +100,7 @@ export default class Request extends React.Component {
                     : ""
                 }
                 disabled={this.props.access === "Department Manager"}>
+                <option>Choose one...</option>
                 {rArr.map((data,ctr)=> <option key={ctr}>{data}</option>)}
               </Form.Control>
             </Col>
