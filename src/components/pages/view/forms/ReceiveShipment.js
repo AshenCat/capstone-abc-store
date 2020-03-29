@@ -29,7 +29,7 @@ export default class ReceiveShipment extends React.Component{
     }
 
     render(){
-        const rArr = [...new Set(this.props.itemList.map(data=>data.vendor))];
+        const rArr = [..."Choose one...", new Set(this.props.itemList.map(data=>data.vendor))];
         return(
             <Card>
                 <Card.Header>Receive Shipment</Card.Header>
@@ -41,6 +41,7 @@ export default class ReceiveShipment extends React.Component{
                             </Form.Label>
                             <Col sm="9">
                                 <Form.Control as="select" name="name" onChange={this.onChange} required>
+                                    <option>Choose one...</option>
                                     {this.props.itemList.map((el) => (<option key={el._id}>{el.name}</option> ))}
                                 </Form.Control>
                                 <Form.Control.Feedback type="invalid">Please enter a valid input</Form.Control.Feedback>
