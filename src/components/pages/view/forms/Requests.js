@@ -72,7 +72,7 @@ export default class Request extends React.Component {
                 name="name"
                 onChange={this.onChange}
                 required
-                value={
+                defaultValue={
                   this.props.access === "Department Manager"
                     ? this.state.name
                     : ""
@@ -94,14 +94,14 @@ export default class Request extends React.Component {
                 name="vendor"
                 onChange={this.onChange}
                 required
-                value={
+                defaultValue={
                   this.props.access === "Department Manager"
                     ? this.state.vendor
                     : ""
                 }
                 disabled={this.props.access === "Department Manager"}>
-                <option>Choose one...</option>
-                {rArr.map((data,ctr)=> <option key={ctr}>{data}</option>)}
+                  <option>Choose one...</option>
+                  {rArr.map((data,ctr)=> <option key={ctr}>{data}</option>)}
               </Form.Control>
             </Col>
           </Form.Group>

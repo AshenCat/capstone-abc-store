@@ -52,6 +52,7 @@ export default class VendorReturn extends React.Component{
     render(){
         const rArr = this.props.itemList ? [...new Set(this.props.itemList.map(data=>data.vendor))] : [];
         const cArr = this.props.itemList ? [...this.props.itemList] : [];
+
         return (
             <Card>
                 <Card.Header>
@@ -63,8 +64,9 @@ export default class VendorReturn extends React.Component{
                                 Item Name
                             </Form.Label>
                             <Col sm="9">
-                                <Form.Control as="select" name="name" onChange={this.onChange} required  disabled={this.props.access === "Warehouse Associate"}>
-                                    {this.props.access === "Warehouse Associate" ? <option selected>{this.state.name}</option> : ""}
+                                <Form.Control as="select" name="name" onChange={this.onChange} required disabled={this.props.access === "Warehouse Associate"}
+                                    defaultValue={this.props.access === "Warehouse Associate" ? this.state.name : ""}>
+                                    <option>Choose one...</option>
                                     {cArr.map((el) => (<option key={el._id}>{el.name}</option> ))}
                                 </Form.Control>
                                 <Form.Control.Feedback type="invalid">Please enter a valid input</Form.Control.Feedback>
@@ -78,6 +80,7 @@ export default class VendorReturn extends React.Component{
                             <Col sm="9">
                                 <Form.Control as="select" name="vendor" onChange={this.onChange} required disabled={this.props.access === "Warehouse Associate"}>
                                 {this.props.access === "Warehouse Associate" ? <option selected>{this.state.vendor}</option> : ""}
+                                <option>Choose one...</option>
                                 {rArr.map((data,ctr)=> <option key={ctr}>{data}</option>)}
                                 </Form.Control>
                                 <Form.Control.Feedback type="invalid">Please enter a valid input</Form.Control.Feedback>
