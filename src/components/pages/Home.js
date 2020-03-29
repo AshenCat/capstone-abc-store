@@ -177,10 +177,10 @@ class Home extends Component {
             <figure className="ml-3">
                 <Route exact path="/">
                     <TableView 
-                    itemList={this.state.itemList}
-                    setSelected={this.setSelected}
-                    setShowToast={this.setShowToast}
-                    setMessage={this.setMessage}/>
+                        itemList={this.state.itemList.sort((a,b) => a.vendor.localeCompare(b.vendor) || a.vendor - b.vendor)}
+                        setSelected={this.setSelected}
+                        setShowToast={this.setShowToast}
+                        setMessage={this.setMessage}/>
                 </Route>
                 <Route path="/items/">
                     <ItemDetails 
@@ -233,10 +233,10 @@ class Home extends Component {
             <figure className="ml-3">
                 <Route exact path="/">
                     <TableView 
-                    itemList={this.state.itemList}
-                    setSelected={this.setSelected}
-                    setShowToast={this.setShowToast}
-                    setMessage={this.setMessage}/>
+                        itemList={this.state.itemList.sort((a,b) => a.vendor.localeCompare(b.vendor) || a.vendor - b.vendor)}
+                        setSelected={this.setSelected}
+                        setShowToast={this.setShowToast}
+                        setMessage={this.setMessage}/>
                 </Route>
                 <Route path="/items/">
                     <ItemDetails 
@@ -280,7 +280,9 @@ class Home extends Component {
         else if (this.props.access === "Store Clerk") return(
             <figure className="ml-3">
                 <Route exact path="/">
-                    <TableView itemList={this.state.itemList} setSelected={this.setSelected}/>
+                    <TableView 
+                        itemList={this.state.itemList.sort((a,b) => a.vendor.localeCompare(b.vendor) || a.vendor - b.vendor)}
+                        setSelected={this.setSelected}/>
                 </Route>
                 <Route path="/items/">
                     <ItemDetails 

@@ -75,7 +75,7 @@ export default class Request extends React.Component {
                     ? this.state.name
                     : ""
                 }
-                disabled
+                disabled={this.props.access === "Department Manager"}
               ></Form.Control>
             </Col>
           </Form.Group>
@@ -94,7 +94,7 @@ export default class Request extends React.Component {
                     ? this.state.vendor
                     : ""
                 }
-                disabled
+                disabled={this.props.access === "Department Manager"}
               ></Form.Control>
             </Col>
           </Form.Group>
