@@ -10,7 +10,7 @@ export default class StatisticsView extends React.Component{
     state = {
         listCopy: [],
         search: '',
-        tab: '',
+        selected: '',
         itemState: []
     }
 
@@ -31,9 +31,9 @@ export default class StatisticsView extends React.Component{
         Axios.post(`${this.props.api}/statistics/get-item-statistics`,{name:param.name, vendor:param.vendor}).then((res)=>{
             // console.log(res.data)
             this.setState({
+                selected: param,
                 itemState: res.data
-            })
-            //console.log(this.state.itemState.currData)
+            }, () => console.log(this.state.selected))
         })
     }
 
@@ -124,6 +124,23 @@ export default class StatisticsView extends React.Component{
                         </Card.Header>
                         <Card.Body>
                             <this.chartView/>
+                            <hr className="my-4" />
+                            <h3>
+                                Item details
+                            </h3>
+                            <Row>
+                                <Col sm><p className="text-right">Name:</p></Col>
+                                <Col sm={4}><p className="text-left">{this.state.selected.name}</p></Col>
+                                <Col sm><p className="text-right">Vendor:</p></Col>
+                                <Col sm={4}><p className="text-left">{this.state.selected.vendor}</p></Col>
+                            </Row>
+                            <Row>
+                                <Col sm><p className="text-right">Price:</p></Col>
+                                <Col sm={4}><p className="text-left">{this.state.selected.price}</p></Col>
+                                <Col sm><p className="text-right">Quantity:</p></Col>
+                                <Col sm={4}><p className="text-left">{this.state.selected.quantity}</p></Col>
+                            </Row>
+                            <hr className="my-4" />
                             <h3>
                                 Other Details
                             </h3>
