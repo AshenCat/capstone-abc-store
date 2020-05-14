@@ -23,7 +23,7 @@ This web application was made for businesses to transition from a paper to a web
 
 ![Add User](https://github.com/itbel/capstone-abc-store/blob/master/images/manager/add_user.png?raw=true)
 
-##### Requestt Ticket List
+##### Request Ticket List
 
 ![Request Ticket List](https://github.com/itbel/capstone-abc-store/blob/master/images/manager/ticket_list.png?raw=true)
 
